@@ -368,24 +368,26 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/PobierzStanStolu", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public Akcja[] PobierzStanStolu(string token) {
+        public Akcja[] PobierzStanStolu(string token, int stempelCzasowy) {
             object[] results = this.Invoke("PobierzStanStolu", new object[] {
-                        token});
+                        token,
+                        stempelCzasowy});
             return ((Akcja[])(results[0]));
         }
         
         /// <remarks/>
-        public void PobierzStanStoluAsync(string token) {
-            this.PobierzStanStoluAsync(token, null);
+        public void PobierzStanStoluAsync(string token, int stempelCzasowy) {
+            this.PobierzStanStoluAsync(token, stempelCzasowy, null);
         }
         
         /// <remarks/>
-        public void PobierzStanStoluAsync(string token, object userState) {
+        public void PobierzStanStoluAsync(string token, int stempelCzasowy, object userState) {
             if ((this.PobierzStanStoluOperationCompleted == null)) {
                 this.PobierzStanStoluOperationCompleted = new System.Threading.SendOrPostCallback(this.OnPobierzStanStoluOperationCompleted);
             }
             this.InvokeAsync("PobierzStanStolu", new object[] {
-                        token}, this.PobierzStanStoluOperationCompleted, userState);
+                        token,
+                        stempelCzasowy}, this.PobierzStanStoluOperationCompleted, userState);
         }
         
         private void OnPobierzStanStoluOperationCompleted(object arg) {
@@ -711,6 +713,48 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class Komunikat {
+        
+        private string trescKomunikatuField;
+        
+        private long kodKomunikatuField;
+        
+        /// <remarks/>
+        public string trescKomunikatu {
+            get {
+                return this.trescKomunikatuField;
+            }
+            set {
+                this.trescKomunikatuField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long kodKomunikatu {
+            get {
+                return this.kodKomunikatuField;
+            }
+            set {
+                this.kodKomunikatuField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18060")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class UkladyKart {
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18060")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class Akcja {
         
         private long identyfikatorGraczaField;
@@ -876,48 +920,6 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class Komunikat {
-        
-        private string trescKomunikatuField;
-        
-        private long kodKomunikatuField;
-        
-        /// <remarks/>
-        public string trescKomunikatu {
-            get {
-                return this.trescKomunikatuField;
-            }
-            set {
-                this.trescKomunikatuField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long kodKomunikatu {
-            get {
-                return this.kodKomunikatuField;
-            }
-            set {
-                this.kodKomunikatuField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18060")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class UkladyKart {
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18060")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class Pokoj {
         
         private string nazwaPokojuField;
@@ -934,11 +936,15 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
         
         private long duzyBlindField;
         
+        private Stan stanField;
+        
         private long ktoBlindField;
         
         private long stawiaField;
         
         private long obecnaStawkaField;
+        
+        private Akcja[] akcjeField;
         
         private Uzytkownik[] userField;
         
@@ -1017,6 +1023,16 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
         }
         
         /// <remarks/>
+        public Stan stan {
+            get {
+                return this.stanField;
+            }
+            set {
+                this.stanField = value;
+            }
+        }
+        
+        /// <remarks/>
         public long ktoBlind {
             get {
                 return this.ktoBlindField;
@@ -1043,6 +1059,16 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
             }
             set {
                 this.obecnaStawkaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Akcja[] akcje {
+            get {
+                return this.akcjeField;
+            }
+            set {
+                this.akcjeField = value;
             }
         }
         
@@ -1075,6 +1101,28 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
                 this.uklField = value;
             }
         }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18060")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public enum Stan {
+        
+        /// <remarks/>
+        STARTING,
+        
+        /// <remarks/>
+        PREFLOP,
+        
+        /// <remarks/>
+        FLOP,
+        
+        /// <remarks/>
+        TURN,
+        
+        /// <remarks/>
+        RIVER,
     }
     
     /// <remarks/>

@@ -13,7 +13,8 @@ using System.Net;
 namespace ClientWindowsFormsApplication1
 {
     public partial class Form1 : Form
-    {        
+    {
+        List<Label> etykietyKart = new List<Label>();
         public Form1()
         {
             InitializeComponent();
@@ -26,7 +27,7 @@ namespace ClientWindowsFormsApplication1
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             textBox4.KeyPress += new KeyPressEventHandler(button5_EnterPress);
             textBox3.ReadOnly = true;
-
+            
             comboBox1.MouseClick += comboBox1_MouseClick;
             
         }
@@ -287,17 +288,67 @@ namespace ClientWindowsFormsApplication1
         {
             Serwisy.komR =  Serwisy.serwerRozgrywki.Start(Serwisy.token, Serwisy.pokoj.numerPokoju);
 
-            MessageBox.Show(Serwisy.komR.trescKomunikatu, Serwisy.komR.kodKomunikatu.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                  
-            Serwisy.czasOstatniejAkcji = 0;
+            if (Serwisy.komR.kodKomunikatu != 200)
+            {
+                MessageBox.Show(Serwisy.komR.trescKomunikatu, Serwisy.komR.kodKomunikatu.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                Serwisy.czasOstatniejAkcji = 0;
+                timer2.Start();
+                 Rozgrywki.Pokoj[] pok = Serwisy.serwerRozgrywki.PobierzPokoje(Serwisy.token);
 
-            //timer2.Start();
+                Serwisy.pokoje.Clear();
+                //comboBox1.Items.Clear();
+                for (int i = 0; i < pok.Length; i++)
+                {//przepisanie ściągniętej tablicy stołów
+                    Serwisy.pokoje.Add(pok[i]);
+                }
+
+                //foreach (Rozgrywki.Uzytkownik u in Serwisy.pokoj.user)
+                for (int i = 0; i < (2*Serwisy.pokoj.user.Length);i+=2 )
+                {
+                    
+                    //etykietyKart.Add(new Label());
+                    if (i == 0)
+                    {
+                        //etykietyKart[i].Location = new Point(260, 280);
+                        //etykietyKart[i + 1].Location = new Point(260, 295);
+                        etykietyKart.Add(new Label { Text = "1-1", Location = new Point(260, 280) });
+                        etykietyKart.Add(new Label { Text = "1-2", Location = new Point(260, 300) });
+                    }
+                    else
+                        if (i == 2)
+                        {
+                            //etykietyKart[i].Location = new Point(100, 170);
+                            //etykietyKart[i + 1].Location = new Point(85, 170);
+                            etykietyKart.Add(new Label { Text = "2-1", Location = new Point(85, 170) });
+                            etykietyKart.Add(new Label { Text = "2-2", Location = new Point(85, 185) });
+                        }
+                        else
+                            if (i == 4)
+                            {
+                                //etykietyKart[i].Location = new Point(260, 75);
+                                //etykietyKart[i + 1].Location = new Point(260, 60);
+                                etykietyKart.Add(new Label { Text = "3-1", Location = new Point(260, 75) });
+                                etykietyKart.Add(new Label { Text = "3-2", Location = new Point(260, 50) });
+                            }
+                    tabPage2.Controls.Add(etykietyKart[i]);
+                    tabPage2.Controls.Add(etykietyKart[i + 1]);
+                }
+
+            }
+            this.Enabled = false;
         }
 
         private void timer2_Tick(object sender, EventArgs e)//pobieranie akcji
         {
-
-
+            //List<Akcja> akcje = Serwisy.serwerRozgrywki.PobierzStanStolu(Serwisy.token,Serwisy.czasOstatniejAkcji)
+            Rozgrywki.Akcja[] akcje = Serwisy.serwerRozgrywki.PobierzStanStolu(Serwisy.token, Serwisy.czasOstatniejAkcji);
+            foreach (Akcja a in akcje)
+            {
+                Serwisy.akcje.Add(a);
+            }
 
         }
 
@@ -318,6 +369,8 @@ namespace ClientWindowsFormsApplication1
         public static Pokoj pokoj = new Pokoj();
         public static List<Pokoj> pokoje = new List<Pokoj>();
         public static Int32 czasOstatniejAkcji = 0;
+
+        public static List<Akcja> akcje = new List<Akcja>();
 
         public static bool wybranyStol = false;
 

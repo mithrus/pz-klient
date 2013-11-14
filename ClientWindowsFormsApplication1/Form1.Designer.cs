@@ -57,6 +57,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pokojBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.stolLB = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -262,6 +263,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.stolLB);
             this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Controls.Add(this.button6);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -275,7 +277,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(71, 136);
+            this.label5.Location = new System.Drawing.Point(20, 45);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(35, 13);
             this.label5.TabIndex = 1;
@@ -327,6 +329,14 @@
             // timer2
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // stolLB
+            // 
+            this.stolLB.BackColor = System.Drawing.Color.ForestGreen;
+            this.stolLB.Location = new System.Drawing.Point(113, 104);
+            this.stolLB.Name = "stolLB";
+            this.stolLB.Size = new System.Drawing.Size(282, 170);
+            this.stolLB.TabIndex = 2;
             // 
             // Form1
             // 
@@ -389,6 +399,7 @@
         private System.Windows.Forms.BindingSource pokojBindingSource;
         public System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Label stolLB;
 
     }
 }

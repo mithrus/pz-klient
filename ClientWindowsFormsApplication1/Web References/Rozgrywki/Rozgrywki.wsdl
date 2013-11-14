@@ -141,12 +141,45 @@
           <s:element minOccurs="1" maxOccurs="1" name="graRozpoczeta" type="s:boolean" />
           <s:element minOccurs="1" maxOccurs="1" name="stawkaWejsciowa" type="s:long" />
           <s:element minOccurs="1" maxOccurs="1" name="duzyBlind" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="stan" type="tns:Stan" />
           <s:element minOccurs="1" maxOccurs="1" name="ktoBlind" type="s:long" />
           <s:element minOccurs="1" maxOccurs="1" name="stawia" type="s:long" />
           <s:element minOccurs="1" maxOccurs="1" name="obecnaStawka" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="akcje" type="tns:ArrayOfAkcja" />
           <s:element minOccurs="0" maxOccurs="1" name="user" type="tns:ArrayOfUzytkownik" />
           <s:element minOccurs="0" maxOccurs="1" name="stol" type="tns:ArrayOfKarta" />
           <s:element minOccurs="0" maxOccurs="1" name="ukl" type="tns:UkladyKart" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="Stan">
+        <s:restriction base="s:string">
+          <s:enumeration value="STARTING" />
+          <s:enumeration value="PREFLOP" />
+          <s:enumeration value="FLOP" />
+          <s:enumeration value="TURN" />
+          <s:enumeration value="RIVER" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfAkcja">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Akcja" nillable="true" type="tns:Akcja" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Akcja">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="identyfikatorGracza" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="nazwaAkcji" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="stempelCzasowy" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="numerStolu" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="kartyGracza" type="tns:ArrayOfKarta" />
+          <s:element minOccurs="0" maxOccurs="1" name="kartyNaStole" type="tns:ArrayOfKarta" />
+          <s:element minOccurs="1" maxOccurs="1" name="malyBlind" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="duzyBlind" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="obecnaStawkaStolu" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="obecnaStawkaGracza" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="iloscKasyNaStole" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="iloscKasyGracza" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="nastepnyGracz" type="s:long" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="UkladyKart" />
@@ -208,6 +241,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="stempelCzasowy" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -218,28 +252,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfAkcja">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Akcja" nillable="true" type="tns:Akcja" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="Akcja">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="identyfikatorGracza" type="s:long" />
-          <s:element minOccurs="0" maxOccurs="1" name="nazwaAkcji" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="stempelCzasowy" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="numerStolu" type="s:long" />
-          <s:element minOccurs="0" maxOccurs="1" name="kartyGracza" type="tns:ArrayOfKarta" />
-          <s:element minOccurs="0" maxOccurs="1" name="kartyNaStole" type="tns:ArrayOfKarta" />
-          <s:element minOccurs="1" maxOccurs="1" name="malyBlind" type="s:boolean" />
-          <s:element minOccurs="1" maxOccurs="1" name="duzyBlind" type="s:boolean" />
-          <s:element minOccurs="1" maxOccurs="1" name="obecnaStawkaStolu" type="s:long" />
-          <s:element minOccurs="1" maxOccurs="1" name="obecnaStawkaGracza" type="s:long" />
-          <s:element minOccurs="1" maxOccurs="1" name="iloscKasyNaStole" type="s:long" />
-          <s:element minOccurs="1" maxOccurs="1" name="iloscKasyGracza" type="s:long" />
-          <s:element minOccurs="1" maxOccurs="1" name="nastepnyGracz" type="s:long" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="WyslijRuch">
         <s:complexType>
           <s:sequence>
