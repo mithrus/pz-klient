@@ -247,11 +247,12 @@ namespace ClientWindowsFormsApplication1
                         button3.Enabled = true;
 
                         tabPage2.Enabled = false;   //karta rozgrywki
+                        Serwisy.pokoj = new Pokoj();
                     }
                     else
                     {
-                        //MessageBox.Show(Serwisy.komR.trescKomunikatu, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        MessageBox.Show(Serwisy.komR.trescKomunikatu, Serwisy.komR.kodKomunikatu.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Serwisy.komR.trescKomunikatu, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //MessageBox.Show(Serwisy.komR.trescKomunikatu, Serwisy.komR.kodKomunikatu.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
@@ -269,14 +270,11 @@ namespace ClientWindowsFormsApplication1
                     }
                     else
                     {
-                        //MessageBox.Show(Serwisy.komR.trescKomunikatu, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        MessageBox.Show(Serwisy.komR.trescKomunikatu, Serwisy.komR.kodKomunikatu.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Serwisy.komR.trescKomunikatu, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //MessageBox.Show(Serwisy.komR.trescKomunikatu, Serwisy.komR.kodKomunikatu.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-
                     
                 }
-
-
 
             }
             catch (Exception exc)

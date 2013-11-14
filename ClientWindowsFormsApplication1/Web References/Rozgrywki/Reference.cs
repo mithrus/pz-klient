@@ -397,26 +397,28 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/WyslijRuch", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public Komunikat WyslijRuch(string token, Akcja akcja) {
+        public Komunikat WyslijRuch(string token, Akcja akcja, long numer) {
             object[] results = this.Invoke("WyslijRuch", new object[] {
                         token,
-                        akcja});
+                        akcja,
+                        numer});
             return ((Komunikat)(results[0]));
         }
         
         /// <remarks/>
-        public void WyslijRuchAsync(string token, Akcja akcja) {
-            this.WyslijRuchAsync(token, akcja, null);
+        public void WyslijRuchAsync(string token, Akcja akcja, long numer) {
+            this.WyslijRuchAsync(token, akcja, numer, null);
         }
         
         /// <remarks/>
-        public void WyslijRuchAsync(string token, Akcja akcja, object userState) {
+        public void WyslijRuchAsync(string token, Akcja akcja, long numer, object userState) {
             if ((this.WyslijRuchOperationCompleted == null)) {
                 this.WyslijRuchOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWyslijRuchOperationCompleted);
             }
             this.InvokeAsync("WyslijRuch", new object[] {
                         token,
-                        akcja}, this.WyslijRuchOperationCompleted, userState);
+                        akcja,
+                        numer}, this.WyslijRuchOperationCompleted, userState);
         }
         
         private void OnWyslijRuchOperationCompleted(object arg) {
