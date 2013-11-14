@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HelloWorld">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloWorldResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloWorldResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Zarejestruj">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nazwa" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="haslo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ZarejestrujResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ZarejestrujResult" type="tns:Komunikat" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Komunikat">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="trescKomunikatu" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="kodKomunikatu" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Zaloguj">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="nazwa" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="haslo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ZalogujResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ZalogujResult" type="tns:Komunikat" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Wyloguj">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WylogujResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="WylogujResult" type="tns:Komunikat" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ZmienHaslo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="haslo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ZmienHasloResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ZmienHasloResult" type="tns:Komunikat" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResetujHaslo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResetujHasloResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ResetujHasloResult" type="tns:Komunikat" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UsunKonto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UsunKontoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UsunKontoResult" type="tns:Komunikat" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PobierzTokeny">
+        <s:complexType />
+      </s:element>
+      <s:element name="PobierzTokenyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PobierzTokenyResult" type="tns:ArrayOfKey" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfKey">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Key" nillable="true" type="tns:Key" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Key">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="identyfikatorUzytkownika" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PobierzUzytkownikow">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PobierzUzytkownikowResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PobierzUzytkownikowResult" type="tns:ArrayOfUzytkownik" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfUzytkownik">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Uzytkownik" nillable="true" type="tns:Uzytkownik" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Uzytkownik">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="identyfikatorUzytkownika" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="nazwaUzytkownika" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="numerPokoju" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="hand" type="tns:ArrayOfKarta" />
+          <s:element minOccurs="0" maxOccurs="1" name="najUklad" type="tns:ArrayOfKarta" />
+          <s:element minOccurs="1" maxOccurs="1" name="kicker" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="fold" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="wart" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="nazwaUkladu" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="start" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfKarta">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Karta" nillable="true" type="tns:Karta" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Karta">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="figura" type="tns:figuraKarty" />
+          <s:element minOccurs="1" maxOccurs="1" name="kolor" type="tns:kolorKarty" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="figuraKarty">
+        <s:restriction base="s:string">
+          <s:enumeration value="K2" />
+          <s:enumeration value="K3" />
+          <s:enumeration value="K4" />
+          <s:enumeration value="K5" />
+          <s:enumeration value="K6" />
+          <s:enumeration value="K7" />
+          <s:enumeration value="K8" />
+          <s:enumeration value="K9" />
+          <s:enumeration value="K10" />
+          <s:enumeration value="KJ" />
+          <s:enumeration value="KD" />
+          <s:enumeration value="KK" />
+          <s:enumeration value="KA" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="kolorKarty">
+        <s:restriction base="s:string">
+          <s:enumeration value="pik" />
+          <s:enumeration value="kier" />
+          <s:enumeration value="karo" />
+          <s:enumeration value="trefl" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="PobierzWiadomosci">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="timT" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PobierzWiadomosciResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PobierzWiadomosciResult" type="tns:ArrayOfWiadomosc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfWiadomosc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Wiadomosc" nillable="true" type="tns:Wiadomosc" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Wiadomosc">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="nazwaUzytkownika" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="trescWiadomosci" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="stempelCzasowy" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="numerPokoju" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="WyslijWiadomosc">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wiadomosc" type="tns:Wiadomosc" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WyslijWiadomoscResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="WyslijWiadomoscResult" type="tns:Komunikat" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloWorldSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloWorld" />
+  </wsdl:message>
+  <wsdl:message name="HelloWorldSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloWorldResponse" />
+  </wsdl:message>
+  <wsdl:message name="ZarejestrujSoapIn">
+    <wsdl:part name="parameters" element="tns:Zarejestruj" />
+  </wsdl:message>
+  <wsdl:message name="ZarejestrujSoapOut">
+    <wsdl:part name="parameters" element="tns:ZarejestrujResponse" />
+  </wsdl:message>
+  <wsdl:message name="ZalogujSoapIn">
+    <wsdl:part name="parameters" element="tns:Zaloguj" />
+  </wsdl:message>
+  <wsdl:message name="ZalogujSoapOut">
+    <wsdl:part name="parameters" element="tns:ZalogujResponse" />
+  </wsdl:message>
+  <wsdl:message name="WylogujSoapIn">
+    <wsdl:part name="parameters" element="tns:Wyloguj" />
+  </wsdl:message>
+  <wsdl:message name="WylogujSoapOut">
+    <wsdl:part name="parameters" element="tns:WylogujResponse" />
+  </wsdl:message>
+  <wsdl:message name="ZmienHasloSoapIn">
+    <wsdl:part name="parameters" element="tns:ZmienHaslo" />
+  </wsdl:message>
+  <wsdl:message name="ZmienHasloSoapOut">
+    <wsdl:part name="parameters" element="tns:ZmienHasloResponse" />
+  </wsdl:message>
+  <wsdl:message name="ResetujHasloSoapIn">
+    <wsdl:part name="parameters" element="tns:ResetujHaslo" />
+  </wsdl:message>
+  <wsdl:message name="ResetujHasloSoapOut">
+    <wsdl:part name="parameters" element="tns:ResetujHasloResponse" />
+  </wsdl:message>
+  <wsdl:message name="UsunKontoSoapIn">
+    <wsdl:part name="parameters" element="tns:UsunKonto" />
+  </wsdl:message>
+  <wsdl:message name="UsunKontoSoapOut">
+    <wsdl:part name="parameters" element="tns:UsunKontoResponse" />
+  </wsdl:message>
+  <wsdl:message name="PobierzTokenySoapIn">
+    <wsdl:part name="parameters" element="tns:PobierzTokeny" />
+  </wsdl:message>
+  <wsdl:message name="PobierzTokenySoapOut">
+    <wsdl:part name="parameters" element="tns:PobierzTokenyResponse" />
+  </wsdl:message>
+  <wsdl:message name="PobierzUzytkownikowSoapIn">
+    <wsdl:part name="parameters" element="tns:PobierzUzytkownikow" />
+  </wsdl:message>
+  <wsdl:message name="PobierzUzytkownikowSoapOut">
+    <wsdl:part name="parameters" element="tns:PobierzUzytkownikowResponse" />
+  </wsdl:message>
+  <wsdl:message name="PobierzWiadomosciSoapIn">
+    <wsdl:part name="parameters" element="tns:PobierzWiadomosci" />
+  </wsdl:message>
+  <wsdl:message name="PobierzWiadomosciSoapOut">
+    <wsdl:part name="parameters" element="tns:PobierzWiadomosciResponse" />
+  </wsdl:message>
+  <wsdl:message name="WyslijWiadomoscSoapIn">
+    <wsdl:part name="parameters" element="tns:WyslijWiadomosc" />
+  </wsdl:message>
+  <wsdl:message name="WyslijWiadomoscSoapOut">
+    <wsdl:part name="parameters" element="tns:WyslijWiadomoscResponse" />
+  </wsdl:message>
+  <wsdl:portType name="GlownySoap">
+    <wsdl:operation name="HelloWorld">
+      <wsdl:input message="tns:HelloWorldSoapIn" />
+      <wsdl:output message="tns:HelloWorldSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Zarejestruj">
+      <wsdl:input message="tns:ZarejestrujSoapIn" />
+      <wsdl:output message="tns:ZarejestrujSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Zaloguj">
+      <wsdl:input message="tns:ZalogujSoapIn" />
+      <wsdl:output message="tns:ZalogujSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Wyloguj">
+      <wsdl:input message="tns:WylogujSoapIn" />
+      <wsdl:output message="tns:WylogujSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ZmienHaslo">
+      <wsdl:input message="tns:ZmienHasloSoapIn" />
+      <wsdl:output message="tns:ZmienHasloSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetujHaslo">
+      <wsdl:input message="tns:ResetujHasloSoapIn" />
+      <wsdl:output message="tns:ResetujHasloSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UsunKonto">
+      <wsdl:input message="tns:UsunKontoSoapIn" />
+      <wsdl:output message="tns:UsunKontoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PobierzTokeny">
+      <wsdl:input message="tns:PobierzTokenySoapIn" />
+      <wsdl:output message="tns:PobierzTokenySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PobierzUzytkownikow">
+      <wsdl:input message="tns:PobierzUzytkownikowSoapIn" />
+      <wsdl:output message="tns:PobierzUzytkownikowSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PobierzWiadomosci">
+      <wsdl:input message="tns:PobierzWiadomosciSoapIn" />
+      <wsdl:output message="tns:PobierzWiadomosciSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="WyslijWiadomosc">
+      <wsdl:input message="tns:WyslijWiadomoscSoapIn" />
+      <wsdl:output message="tns:WyslijWiadomoscSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GlownySoap" type="tns:GlownySoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Zarejestruj">
+      <soap:operation soapAction="http://tempuri.org/Zarejestruj" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Zaloguj">
+      <soap:operation soapAction="http://tempuri.org/Zaloguj" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Wyloguj">
+      <soap:operation soapAction="http://tempuri.org/Wyloguj" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ZmienHaslo">
+      <soap:operation soapAction="http://tempuri.org/ZmienHaslo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetujHaslo">
+      <soap:operation soapAction="http://tempuri.org/ResetujHaslo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UsunKonto">
+      <soap:operation soapAction="http://tempuri.org/UsunKonto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PobierzTokeny">
+      <soap:operation soapAction="http://tempuri.org/PobierzTokeny" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PobierzUzytkownikow">
+      <soap:operation soapAction="http://tempuri.org/PobierzUzytkownikow" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PobierzWiadomosci">
+      <soap:operation soapAction="http://tempuri.org/PobierzWiadomosci" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WyslijWiadomosc">
+      <soap:operation soapAction="http://tempuri.org/WyslijWiadomosc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GlownySoap12" type="tns:GlownySoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloWorld">
+      <soap12:operation soapAction="http://tempuri.org/HelloWorld" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Zarejestruj">
+      <soap12:operation soapAction="http://tempuri.org/Zarejestruj" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Zaloguj">
+      <soap12:operation soapAction="http://tempuri.org/Zaloguj" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Wyloguj">
+      <soap12:operation soapAction="http://tempuri.org/Wyloguj" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ZmienHaslo">
+      <soap12:operation soapAction="http://tempuri.org/ZmienHaslo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetujHaslo">
+      <soap12:operation soapAction="http://tempuri.org/ResetujHaslo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UsunKonto">
+      <soap12:operation soapAction="http://tempuri.org/UsunKonto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PobierzTokeny">
+      <soap12:operation soapAction="http://tempuri.org/PobierzTokeny" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PobierzUzytkownikow">
+      <soap12:operation soapAction="http://tempuri.org/PobierzUzytkownikow" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PobierzWiadomosci">
+      <soap12:operation soapAction="http://tempuri.org/PobierzWiadomosci" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="WyslijWiadomosc">
+      <soap12:operation soapAction="http://tempuri.org/WyslijWiadomosc" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Glowny">
+    <wsdl:port name="GlownySoap" binding="tns:GlownySoap">
+      <soap:address location="http://localhost:51314/Glowny.asmx" />
+    </wsdl:port>
+    <wsdl:port name="GlownySoap12" binding="tns:GlownySoap12">
+      <soap12:address location="http://localhost:51314/Glowny.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
