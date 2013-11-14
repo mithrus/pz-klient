@@ -287,6 +287,7 @@ namespace ClientWindowsFormsApplication1
         private void button6_Click(object sender, EventArgs e)
         {
             Serwisy.komR =  Serwisy.serwerRozgrywki.Start(Serwisy.token, Serwisy.pokoj.numerPokoju);
+            Int64 nr = Serwisy.pokoj.numerPokoju;
 
             if (Serwisy.komR.kodKomunikatu != 200)
             {
@@ -296,14 +297,18 @@ namespace ClientWindowsFormsApplication1
             {
                 Serwisy.czasOstatniejAkcji = 0;
                 timer2.Start();
-                 Rozgrywki.Pokoj[] pok = Serwisy.serwerRozgrywki.PobierzPokoje(Serwisy.token);
+                
+                Rozgrywki.Pokoj[] pok = Serwisy.serwerRozgrywki.PobierzPokoje(Serwisy.token);
 
                 Serwisy.pokoje.Clear();
-                //comboBox1.Items.Clear();
+                ////comboBox1.Items.Clear();
                 for (int i = 0; i < pok.Length; i++)
-                {//przepisanie ściągniętej tablicy stołów
+                {
+                //{//przepisanie ściągniętej tablicy stołów
                     Serwisy.pokoje.Add(pok[i]);
                 }
+                Serwisy.pokoj = Serwisy.pokoje.Find(delegate(Pokoj c) { return c.numerPokoju == nr; });
+                //Serwisy.pokoj = Serwisy.serwerRozgrywki.PobierzPokoje(Serwisy.token).Single(delegate(Pokoj c) { return c.nazwaPokoju == Serwisy.str; });
 
                 //foreach (Rozgrywki.Uzytkownik u in Serwisy.pokoj.user)
                 for (int i = 0; i < (2*Serwisy.pokoj.user.Length);i+=2 )
