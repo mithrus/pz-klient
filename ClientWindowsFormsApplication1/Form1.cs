@@ -16,6 +16,7 @@ namespace ClientWindowsFormsApplication1
     {
         List<Label> etykietyKart = new List<Label>();
         bool rozdanie = true;
+        bool start = false;
         public Form1()
         {
             InitializeComponent();
@@ -269,6 +270,7 @@ namespace ClientWindowsFormsApplication1
                         button3.Enabled = false;
 
                         tabPage2.Enabled = true;   //karta rozgrywki
+                        timer2.Start();
                     }
                     else
                     {
@@ -288,7 +290,7 @@ namespace ClientWindowsFormsApplication1
         private void button6_Click(object sender, EventArgs e)
         {
             Serwisy.komR =  Serwisy.serwerRozgrywki.Start(Serwisy.token, Serwisy.pokoj.numerPokoju);
-            Int64 nr = Serwisy.pokoj.numerPokoju;
+            //Int64 nr = Serwisy.pokoj.numerPokoju;
 
             if (Serwisy.komR.kodKomunikatu != 200)
             {
@@ -299,54 +301,27 @@ namespace ClientWindowsFormsApplication1
                 Serwisy.czasOstatniejAkcji = 0;
                 
                 
-                Rozgrywki.Pokoj[] pok = Serwisy.serwerRozgrywki.PobierzPokoje(Serwisy.token);
+                //Rozgrywki.Pokoj[] pok = Serwisy.serwerRozgrywki.PobierzPokoje(Serwisy.token);
 
-                Serwisy.pokoje.Clear();
-                ////comboBox1.Items.Clear();
-                for (int i = 0; i < pok.Length; i++)
-                {
-                //{//przepisanie ściągniętej tablicy stołów
-                    Serwisy.pokoje.Add(pok[i]);
-                }
-                Serwisy.pokoj = Serwisy.pokoje.Find(delegate(Pokoj c) { return c.numerPokoju == nr; });
+                //Serwisy.pokoje.Clear();
+                //////comboBox1.Items.Clear();
+                //for (int i = 0; i < pok.Length; i++)
+                //{
+                ////{//przepisanie ściągniętej tablicy stołów
+                //    Serwisy.pokoje.Add(pok[i]);
+                //}
+                //Serwisy.pokoj = Serwisy.pokoje.Find(delegate(Pokoj c) { return c.numerPokoju == nr; });
                 //Serwisy.pokoj = Serwisy.serwerRozgrywki.PobierzPokoje(Serwisy.token).Single(delegate(Pokoj c) { return c.nazwaPokoju == Serwisy.str; });
 
                 //foreach (Rozgrywki.Uzytkownik u in Serwisy.pokoj.user)
-                for (int i = 0; i < (2*Serwisy.pokoj.user.Length);i+=2 )
-                {
-                    
-                    //etykietyKart.Add(new Label());
-                    if (i == 0)
-                    {
-                        //etykietyKart[i].Location = new Point(260, 280);
-                        //etykietyKart[i + 1].Location = new Point(260, 295);
-                        etykietyKart.Add(new Label { Text = "1-1", Location = new Point(260, 280) });
-                        etykietyKart.Add(new Label { Text = "1-2", Location = new Point(260, 300) });
-                    }
-                    else
-                        if (i == 2)
-                        {
-                            //etykietyKart[i].Location = new Point(100, 170);
-                            //etykietyKart[i + 1].Location = new Point(85, 170);
-                            etykietyKart.Add(new Label { Text = "2-1", Location = new Point(85, 170) });
-                            etykietyKart.Add(new Label { Text = "2-2", Location = new Point(85, 185) });
-                        }
-                        else
-                            if (i == 4)
-                            {
-                                //etykietyKart[i].Location = new Point(260, 75);
-                                //etykietyKart[i + 1].Location = new Point(260, 60);
-                                etykietyKart.Add(new Label { Text = "3-1", Location = new Point(260, 75) });
-                                etykietyKart.Add(new Label { Text = "3-2", Location = new Point(260, 50) });
-                            }
-                    //RozdajGraczom();
-                    tabPage2.Controls.Add(etykietyKart[i]);
-                    tabPage2.Controls.Add(etykietyKart[i + 1]);
-                }
 
+                UtworzEtykietyKart();
+                start = true;
+                timer2.Start();
             }
-            this.Enabled = false;
-            timer2.Start();
+            //this.Enabled = false;
+            //timer2.Start();
+            
         }
 
         private void timer2_Tick(object sender, EventArgs e)//pobieranie akcji
@@ -375,6 +350,8 @@ namespace ClientWindowsFormsApplication1
 
         void RozdajGraczom()
         {
+            if (!start)
+                UtworzEtykietyKart();
             int i = 0;
 
             foreach (Akcja a in Serwisy.akcje)
@@ -387,7 +364,52 @@ namespace ClientWindowsFormsApplication1
                 rozdanie = false;
 
         }
+        void UtworzEtykietyKart()
+        {
+            Int64 nr = Serwisy.pokoj.numerPokoju;
+            Rozgrywki.Pokoj[] pok = Serwisy.serwerRozgrywki.PobierzPokoje(Serwisy.token);
 
+            Serwisy.pokoje.Clear();
+            ////comboBox1.Items.Clear();
+            for (int i = 0; i < pok.Length; i++)
+            {
+                //{//przepisanie ściągniętej tablicy stołów
+                Serwisy.pokoje.Add(pok[i]);
+            }
+
+            Serwisy.pokoj = Serwisy.pokoje.Find(delegate(Pokoj c) { return c.numerPokoju == nr; });
+            for (int i = 0; i < (2 * Serwisy.pokoj.user.Length); i += 2)
+            {
+
+                //etykietyKart.Add(new Label());
+                if (i == 0)
+                {
+                    //etykietyKart[i].Location = new Point(260, 280);
+                    //etykietyKart[i + 1].Location = new Point(260, 295);
+                    etykietyKart.Add(new Label { Text = "1-1", Location = new Point(260, 280) });
+                    etykietyKart.Add(new Label { Text = "1-2", Location = new Point(260, 300) });
+                }
+                else
+                    if (i == 2)
+                    {
+                        //etykietyKart[i].Location = new Point(100, 170);
+                        //etykietyKart[i + 1].Location = new Point(85, 170);
+                        etykietyKart.Add(new Label { Text = "2-1", Location = new Point(85, 170) });
+                        etykietyKart.Add(new Label { Text = "2-2", Location = new Point(85, 185) });
+                    }
+                    else
+                        if (i == 4)
+                        {
+                            //etykietyKart[i].Location = new Point(260, 75);
+                            //etykietyKart[i + 1].Location = new Point(260, 60);
+                            etykietyKart.Add(new Label { Text = "3-1", Location = new Point(260, 75) });
+                            etykietyKart.Add(new Label { Text = "3-2", Location = new Point(260, 50) });
+                        }
+                //RozdajGraczom();
+                tabPage2.Controls.Add(etykietyKart[i]);
+                tabPage2.Controls.Add(etykietyKart[i + 1]);
+            }
+        }
 
     }//koniec klasy Form1
 
