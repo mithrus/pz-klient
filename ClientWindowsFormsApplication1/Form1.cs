@@ -15,6 +15,7 @@ namespace ClientWindowsFormsApplication1
     public partial class Form1 : Form
     {
         List<Label> etykietyKart = new List<Label>();
+        bool rozdanie = true;
         public Form1()
         {
             InitializeComponent();
@@ -179,7 +180,7 @@ namespace ClientWindowsFormsApplication1
         private void Form1_Load(object sender, EventArgs e)//ładowanie formy głównej
         {
             timer1.Interval = 500;  //co 0,5s ściąganie wiadomości czatu głównego z serwera 
-            timer2.Interval = 500;
+            timer2.Interval = 10000;
         }
 
         private void timer1_Tick(object sender, EventArgs e)//akcja odczytu wiadomości czatu głównego
@@ -296,7 +297,7 @@ namespace ClientWindowsFormsApplication1
             else
             {
                 Serwisy.czasOstatniejAkcji = 0;
-                timer2.Start();
+                
                 
                 Rozgrywki.Pokoj[] pok = Serwisy.serwerRozgrywki.PobierzPokoje(Serwisy.token);
 
@@ -338,25 +339,54 @@ namespace ClientWindowsFormsApplication1
                                 etykietyKart.Add(new Label { Text = "3-1", Location = new Point(260, 75) });
                                 etykietyKart.Add(new Label { Text = "3-2", Location = new Point(260, 50) });
                             }
+                    //RozdajGraczom();
                     tabPage2.Controls.Add(etykietyKart[i]);
                     tabPage2.Controls.Add(etykietyKart[i + 1]);
                 }
 
             }
             this.Enabled = false;
+            timer2.Start();
         }
 
         private void timer2_Tick(object sender, EventArgs e)//pobieranie akcji
         {
             //List<Akcja> akcje = Serwisy.serwerRozgrywki.PobierzStanStolu(Serwisy.token,Serwisy.czasOstatniejAkcji)
             Rozgrywki.Akcja[] akcje = Serwisy.serwerRozgrywki.PobierzStanStolu(Serwisy.token, Serwisy.czasOstatniejAkcji);
-            foreach (Akcja a in akcje)
+            //foreach (Akcja a in akcje)
+            //{
+             //   akcje.
+            //    Serwisy.akcje.Add(a);
+            ///}
+            ///
+            Serwisy.akcje = akcje.ToList();
+            if (Serwisy.akcje.Count > 0)
             {
-                Serwisy.akcje.Add(a);
+                Serwisy.czasOstatniejAkcji = Serwisy.akcje[Serwisy.akcje.Count - 1].stempelCzasowy;
+                if (rozdanie)
+                {
+                    RozdajGraczom();
+                    //rozdanie = false;
+                    timer2.Stop();
+                }
             }
 
         }
 
+        void RozdajGraczom()
+        {
+            int i = 0;
+
+            foreach (Akcja a in Serwisy.akcje)
+            {
+                etykietyKart[i].Text = a.kartyGracza[0].figura + " " + a.kartyGracza[0].kolor;
+                etykietyKart[i+1].Text = a.kartyGracza[1].figura + " " + a.kartyGracza[1].kolor;
+                i += 2;
+            }
+            if(i>0)
+                rozdanie = false;
+
+        }
 
 
     }//koniec klasy Form1
