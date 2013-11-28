@@ -29,21 +29,19 @@ namespace ClientWindowsFormsApplication1.Glowny {
     [System.Web.Services.WebServiceBindingAttribute(Name="GlownySoap", Namespace="http://tempuri.org/")]
     public partial class Glowny : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
-        private System.Threading.SendOrPostCallback HelloWorldOperationCompleted;
+        private System.Threading.SendOrPostCallback ZwrocZalogowanychOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback dodajZwOperationCompleted;
         
         private System.Threading.SendOrPostCallback ZarejestrujOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback SprawdzNazweOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback SprawdzEmailOperationCompleted;
         
         private System.Threading.SendOrPostCallback ZalogujOperationCompleted;
         
         private System.Threading.SendOrPostCallback WylogujOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback ZmienHasloOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback ResetujHasloOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback UsunKontoOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback PobierzTokenyOperationCompleted;
         
         private System.Threading.SendOrPostCallback PobierzUzytkownikowOperationCompleted;
         
@@ -90,28 +88,25 @@ namespace ClientWindowsFormsApplication1.Glowny {
         }
         
         /// <remarks/>
-        public event HelloWorldCompletedEventHandler HelloWorldCompleted;
+        public event ZwrocZalogowanychCompletedEventHandler ZwrocZalogowanychCompleted;
+        
+        /// <remarks/>
+        public event dodajZwCompletedEventHandler dodajZwCompleted;
         
         /// <remarks/>
         public event ZarejestrujCompletedEventHandler ZarejestrujCompleted;
+        
+        /// <remarks/>
+        public event SprawdzNazweCompletedEventHandler SprawdzNazweCompleted;
+        
+        /// <remarks/>
+        public event SprawdzEmailCompletedEventHandler SprawdzEmailCompleted;
         
         /// <remarks/>
         public event ZalogujCompletedEventHandler ZalogujCompleted;
         
         /// <remarks/>
         public event WylogujCompletedEventHandler WylogujCompleted;
-        
-        /// <remarks/>
-        public event ZmienHasloCompletedEventHandler ZmienHasloCompleted;
-        
-        /// <remarks/>
-        public event ResetujHasloCompletedEventHandler ResetujHasloCompleted;
-        
-        /// <remarks/>
-        public event UsunKontoCompletedEventHandler UsunKontoCompleted;
-        
-        /// <remarks/>
-        public event PobierzTokenyCompletedEventHandler PobierzTokenyCompleted;
         
         /// <remarks/>
         public event PobierzUzytkownikowCompletedEventHandler PobierzUzytkownikowCompleted;
@@ -123,29 +118,56 @@ namespace ClientWindowsFormsApplication1.Glowny {
         public event WyslijWiadomoscCompletedEventHandler WyslijWiadomoscCompleted;
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/HelloWorld", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public string HelloWorld() {
-            object[] results = this.Invoke("HelloWorld", new object[0]);
-            return ((string)(results[0]));
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ZwrocZalogowanych", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Uzytkownik[] ZwrocZalogowanych() {
+            object[] results = this.Invoke("ZwrocZalogowanych", new object[0]);
+            return ((Uzytkownik[])(results[0]));
         }
         
         /// <remarks/>
-        public void HelloWorldAsync() {
-            this.HelloWorldAsync(null);
+        public void ZwrocZalogowanychAsync() {
+            this.ZwrocZalogowanychAsync(null);
         }
         
         /// <remarks/>
-        public void HelloWorldAsync(object userState) {
-            if ((this.HelloWorldOperationCompleted == null)) {
-                this.HelloWorldOperationCompleted = new System.Threading.SendOrPostCallback(this.OnHelloWorldOperationCompleted);
+        public void ZwrocZalogowanychAsync(object userState) {
+            if ((this.ZwrocZalogowanychOperationCompleted == null)) {
+                this.ZwrocZalogowanychOperationCompleted = new System.Threading.SendOrPostCallback(this.OnZwrocZalogowanychOperationCompleted);
             }
-            this.InvokeAsync("HelloWorld", new object[0], this.HelloWorldOperationCompleted, userState);
+            this.InvokeAsync("ZwrocZalogowanych", new object[0], this.ZwrocZalogowanychOperationCompleted, userState);
         }
         
-        private void OnHelloWorldOperationCompleted(object arg) {
-            if ((this.HelloWorldCompleted != null)) {
+        private void OnZwrocZalogowanychOperationCompleted(object arg) {
+            if ((this.ZwrocZalogowanychCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.HelloWorldCompleted(this, new HelloWorldCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.ZwrocZalogowanychCompleted(this, new ZwrocZalogowanychCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/dodajZw", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public bool dodajZw() {
+            object[] results = this.Invoke("dodajZw", new object[0]);
+            return ((bool)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void dodajZwAsync() {
+            this.dodajZwAsync(null);
+        }
+        
+        /// <remarks/>
+        public void dodajZwAsync(object userState) {
+            if ((this.dodajZwOperationCompleted == null)) {
+                this.dodajZwOperationCompleted = new System.Threading.SendOrPostCallback(this.OndodajZwOperationCompleted);
+            }
+            this.InvokeAsync("dodajZw", new object[0], this.dodajZwOperationCompleted, userState);
+        }
+        
+        private void OndodajZwOperationCompleted(object arg) {
+            if ((this.dodajZwCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.dodajZwCompleted(this, new dodajZwCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -183,12 +205,71 @@ namespace ClientWindowsFormsApplication1.Glowny {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SprawdzNazwe", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Komunikat SprawdzNazwe(string nazwa) {
+            object[] results = this.Invoke("SprawdzNazwe", new object[] {
+                        nazwa});
+            return ((Komunikat)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void SprawdzNazweAsync(string nazwa) {
+            this.SprawdzNazweAsync(nazwa, null);
+        }
+        
+        /// <remarks/>
+        public void SprawdzNazweAsync(string nazwa, object userState) {
+            if ((this.SprawdzNazweOperationCompleted == null)) {
+                this.SprawdzNazweOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSprawdzNazweOperationCompleted);
+            }
+            this.InvokeAsync("SprawdzNazwe", new object[] {
+                        nazwa}, this.SprawdzNazweOperationCompleted, userState);
+        }
+        
+        private void OnSprawdzNazweOperationCompleted(object arg) {
+            if ((this.SprawdzNazweCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.SprawdzNazweCompleted(this, new SprawdzNazweCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SprawdzEmail", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Komunikat SprawdzEmail(string email) {
+            object[] results = this.Invoke("SprawdzEmail", new object[] {
+                        email});
+            return ((Komunikat)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void SprawdzEmailAsync(string email) {
+            this.SprawdzEmailAsync(email, null);
+        }
+        
+        /// <remarks/>
+        public void SprawdzEmailAsync(string email, object userState) {
+            if ((this.SprawdzEmailOperationCompleted == null)) {
+                this.SprawdzEmailOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSprawdzEmailOperationCompleted);
+            }
+            this.InvokeAsync("SprawdzEmail", new object[] {
+                        email}, this.SprawdzEmailOperationCompleted, userState);
+        }
+        
+        private void OnSprawdzEmailOperationCompleted(object arg) {
+            if ((this.SprawdzEmailCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.SprawdzEmailCompleted(this, new SprawdzEmailCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Zaloguj", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public Komunikat Zaloguj(string nazwa, string haslo) {
+        [return: System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
+        public byte[] Zaloguj(string nazwa, string haslo) {
             object[] results = this.Invoke("Zaloguj", new object[] {
                         nazwa,
                         haslo});
-            return ((Komunikat)(results[0]));
+            return ((byte[])(results[0]));
         }
         
         /// <remarks/>
@@ -215,19 +296,19 @@ namespace ClientWindowsFormsApplication1.Glowny {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Wyloguj", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public Komunikat Wyloguj(string token) {
+        public Komunikat Wyloguj([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] token) {
             object[] results = this.Invoke("Wyloguj", new object[] {
                         token});
             return ((Komunikat)(results[0]));
         }
         
         /// <remarks/>
-        public void WylogujAsync(string token) {
+        public void WylogujAsync(byte[] token) {
             this.WylogujAsync(token, null);
         }
         
         /// <remarks/>
-        public void WylogujAsync(string token, object userState) {
+        public void WylogujAsync(byte[] token, object userState) {
             if ((this.WylogujOperationCompleted == null)) {
                 this.WylogujOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWylogujOperationCompleted);
             }
@@ -243,136 +324,20 @@ namespace ClientWindowsFormsApplication1.Glowny {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ZmienHaslo", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public Komunikat ZmienHaslo(string token, string haslo) {
-            object[] results = this.Invoke("ZmienHaslo", new object[] {
-                        token,
-                        haslo});
-            return ((Komunikat)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void ZmienHasloAsync(string token, string haslo) {
-            this.ZmienHasloAsync(token, haslo, null);
-        }
-        
-        /// <remarks/>
-        public void ZmienHasloAsync(string token, string haslo, object userState) {
-            if ((this.ZmienHasloOperationCompleted == null)) {
-                this.ZmienHasloOperationCompleted = new System.Threading.SendOrPostCallback(this.OnZmienHasloOperationCompleted);
-            }
-            this.InvokeAsync("ZmienHaslo", new object[] {
-                        token,
-                        haslo}, this.ZmienHasloOperationCompleted, userState);
-        }
-        
-        private void OnZmienHasloOperationCompleted(object arg) {
-            if ((this.ZmienHasloCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.ZmienHasloCompleted(this, new ZmienHasloCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ResetujHaslo", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public Komunikat ResetujHaslo(string email) {
-            object[] results = this.Invoke("ResetujHaslo", new object[] {
-                        email});
-            return ((Komunikat)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void ResetujHasloAsync(string email) {
-            this.ResetujHasloAsync(email, null);
-        }
-        
-        /// <remarks/>
-        public void ResetujHasloAsync(string email, object userState) {
-            if ((this.ResetujHasloOperationCompleted == null)) {
-                this.ResetujHasloOperationCompleted = new System.Threading.SendOrPostCallback(this.OnResetujHasloOperationCompleted);
-            }
-            this.InvokeAsync("ResetujHaslo", new object[] {
-                        email}, this.ResetujHasloOperationCompleted, userState);
-        }
-        
-        private void OnResetujHasloOperationCompleted(object arg) {
-            if ((this.ResetujHasloCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.ResetujHasloCompleted(this, new ResetujHasloCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/UsunKonto", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public Komunikat UsunKonto(string token) {
-            object[] results = this.Invoke("UsunKonto", new object[] {
-                        token});
-            return ((Komunikat)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void UsunKontoAsync(string token) {
-            this.UsunKontoAsync(token, null);
-        }
-        
-        /// <remarks/>
-        public void UsunKontoAsync(string token, object userState) {
-            if ((this.UsunKontoOperationCompleted == null)) {
-                this.UsunKontoOperationCompleted = new System.Threading.SendOrPostCallback(this.OnUsunKontoOperationCompleted);
-            }
-            this.InvokeAsync("UsunKonto", new object[] {
-                        token}, this.UsunKontoOperationCompleted, userState);
-        }
-        
-        private void OnUsunKontoOperationCompleted(object arg) {
-            if ((this.UsunKontoCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.UsunKontoCompleted(this, new UsunKontoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/PobierzTokeny", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public Key[] PobierzTokeny() {
-            object[] results = this.Invoke("PobierzTokeny", new object[0]);
-            return ((Key[])(results[0]));
-        }
-        
-        /// <remarks/>
-        public void PobierzTokenyAsync() {
-            this.PobierzTokenyAsync(null);
-        }
-        
-        /// <remarks/>
-        public void PobierzTokenyAsync(object userState) {
-            if ((this.PobierzTokenyOperationCompleted == null)) {
-                this.PobierzTokenyOperationCompleted = new System.Threading.SendOrPostCallback(this.OnPobierzTokenyOperationCompleted);
-            }
-            this.InvokeAsync("PobierzTokeny", new object[0], this.PobierzTokenyOperationCompleted, userState);
-        }
-        
-        private void OnPobierzTokenyOperationCompleted(object arg) {
-            if ((this.PobierzTokenyCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.PobierzTokenyCompleted(this, new PobierzTokenyCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/PobierzUzytkownikow", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public Uzytkownik[] PobierzUzytkownikow(string token) {
+        public Uzytkownik[] PobierzUzytkownikow([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] token) {
             object[] results = this.Invoke("PobierzUzytkownikow", new object[] {
                         token});
             return ((Uzytkownik[])(results[0]));
         }
         
         /// <remarks/>
-        public void PobierzUzytkownikowAsync(string token) {
+        public void PobierzUzytkownikowAsync(byte[] token) {
             this.PobierzUzytkownikowAsync(token, null);
         }
         
         /// <remarks/>
-        public void PobierzUzytkownikowAsync(string token, object userState) {
+        public void PobierzUzytkownikowAsync(byte[] token, object userState) {
             if ((this.PobierzUzytkownikowOperationCompleted == null)) {
                 this.PobierzUzytkownikowOperationCompleted = new System.Threading.SendOrPostCallback(this.OnPobierzUzytkownikowOperationCompleted);
             }
@@ -389,26 +354,28 @@ namespace ClientWindowsFormsApplication1.Glowny {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/PobierzWiadomosci", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public Wiadomosc[] PobierzWiadomosci(string token, int timT) {
+        public Wiadomosc[] PobierzWiadomosci([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] token, int timT, long pokoj) {
             object[] results = this.Invoke("PobierzWiadomosci", new object[] {
                         token,
-                        timT});
+                        timT,
+                        pokoj});
             return ((Wiadomosc[])(results[0]));
         }
         
         /// <remarks/>
-        public void PobierzWiadomosciAsync(string token, int timT) {
-            this.PobierzWiadomosciAsync(token, timT, null);
+        public void PobierzWiadomosciAsync(byte[] token, int timT, long pokoj) {
+            this.PobierzWiadomosciAsync(token, timT, pokoj, null);
         }
         
         /// <remarks/>
-        public void PobierzWiadomosciAsync(string token, int timT, object userState) {
+        public void PobierzWiadomosciAsync(byte[] token, int timT, long pokoj, object userState) {
             if ((this.PobierzWiadomosciOperationCompleted == null)) {
                 this.PobierzWiadomosciOperationCompleted = new System.Threading.SendOrPostCallback(this.OnPobierzWiadomosciOperationCompleted);
             }
             this.InvokeAsync("PobierzWiadomosci", new object[] {
                         token,
-                        timT}, this.PobierzWiadomosciOperationCompleted, userState);
+                        timT,
+                        pokoj}, this.PobierzWiadomosciOperationCompleted, userState);
         }
         
         private void OnPobierzWiadomosciOperationCompleted(object arg) {
@@ -420,7 +387,7 @@ namespace ClientWindowsFormsApplication1.Glowny {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/WyslijWiadomosc", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public Komunikat WyslijWiadomosc(string token, Wiadomosc wiadomosc) {
+        public Komunikat WyslijWiadomosc([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] token, Wiadomosc wiadomosc) {
             object[] results = this.Invoke("WyslijWiadomosc", new object[] {
                         token,
                         wiadomosc});
@@ -428,12 +395,12 @@ namespace ClientWindowsFormsApplication1.Glowny {
         }
         
         /// <remarks/>
-        public void WyslijWiadomoscAsync(string token, Wiadomosc wiadomosc) {
+        public void WyslijWiadomoscAsync(byte[] token, Wiadomosc wiadomosc) {
             this.WyslijWiadomoscAsync(token, wiadomosc, null);
         }
         
         /// <remarks/>
-        public void WyslijWiadomoscAsync(string token, Wiadomosc wiadomosc, object userState) {
+        public void WyslijWiadomoscAsync(byte[] token, Wiadomosc wiadomosc, object userState) {
             if ((this.WyslijWiadomoscOperationCompleted == null)) {
                 this.WyslijWiadomoscOperationCompleted = new System.Threading.SendOrPostCallback(this.OnWyslijWiadomoscOperationCompleted);
             }
@@ -474,29 +441,77 @@ namespace ClientWindowsFormsApplication1.Glowny {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class Komunikat {
+    public partial class Uzytkownik {
         
-        private string trescKomunikatuField;
+        private long identyfikatorUzytkownikaField;
         
-        private long kodKomunikatuField;
+        private string nazwaUzytkownikaField;
+        
+        private long numerPokojuField;
+        
+        private long kasioraField;
+        
+        private bool foldField;
+        
+        private bool startField;
         
         /// <remarks/>
-        public string trescKomunikatu {
+        public long identyfikatorUzytkownika {
             get {
-                return this.trescKomunikatuField;
+                return this.identyfikatorUzytkownikaField;
             }
             set {
-                this.trescKomunikatuField = value;
+                this.identyfikatorUzytkownikaField = value;
             }
         }
         
         /// <remarks/>
-        public long kodKomunikatu {
+        public string nazwaUzytkownika {
             get {
-                return this.kodKomunikatuField;
+                return this.nazwaUzytkownikaField;
             }
             set {
-                this.kodKomunikatuField = value;
+                this.nazwaUzytkownikaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long numerPokoju {
+            get {
+                return this.numerPokojuField;
+            }
+            set {
+                this.numerPokojuField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long kasiora {
+            get {
+                return this.kasioraField;
+            }
+            set {
+                this.kasioraField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool fold {
+            get {
+                return this.foldField;
+            }
+            set {
+                this.foldField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool start {
+            get {
+                return this.startField;
+            }
+            set {
+                this.startField = value;
             }
         }
     }
@@ -564,282 +579,81 @@ namespace ClientWindowsFormsApplication1.Glowny {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class Karta {
+    public partial class Komunikat {
         
-        private figuraKarty figuraField;
+        private string trescKomunikatuField;
         
-        private kolorKarty kolorField;
+        private long kodKomunikatuField;
         
         /// <remarks/>
-        public figuraKarty figura {
+        public string trescKomunikatu {
             get {
-                return this.figuraField;
+                return this.trescKomunikatuField;
             }
             set {
-                this.figuraField = value;
+                this.trescKomunikatuField = value;
             }
         }
         
         /// <remarks/>
-        public kolorKarty kolor {
+        public long kodKomunikatu {
             get {
-                return this.kolorField;
+                return this.kodKomunikatuField;
             }
             set {
-                this.kolorField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18060")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public enum figuraKarty {
-        
-        /// <remarks/>
-        K2,
-        
-        /// <remarks/>
-        K3,
-        
-        /// <remarks/>
-        K4,
-        
-        /// <remarks/>
-        K5,
-        
-        /// <remarks/>
-        K6,
-        
-        /// <remarks/>
-        K7,
-        
-        /// <remarks/>
-        K8,
-        
-        /// <remarks/>
-        K9,
-        
-        /// <remarks/>
-        K10,
-        
-        /// <remarks/>
-        KJ,
-        
-        /// <remarks/>
-        KD,
-        
-        /// <remarks/>
-        KK,
-        
-        /// <remarks/>
-        KA,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18060")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public enum kolorKarty {
-        
-        /// <remarks/>
-        pik,
-        
-        /// <remarks/>
-        kier,
-        
-        /// <remarks/>
-        karo,
-        
-        /// <remarks/>
-        trefl,
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18060")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class Uzytkownik {
-        
-        private long identyfikatorUzytkownikaField;
-        
-        private string nazwaUzytkownikaField;
-        
-        private long numerPokojuField;
-        
-        private Karta[] handField;
-        
-        private Karta[] najUkladField;
-        
-        private int kickerField;
-        
-        private bool foldField;
-        
-        private int wartField;
-        
-        private string nazwaUkladuField;
-        
-        private bool startField;
-        
-        /// <remarks/>
-        public long identyfikatorUzytkownika {
-            get {
-                return this.identyfikatorUzytkownikaField;
-            }
-            set {
-                this.identyfikatorUzytkownikaField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string nazwaUzytkownika {
-            get {
-                return this.nazwaUzytkownikaField;
-            }
-            set {
-                this.nazwaUzytkownikaField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long numerPokoju {
-            get {
-                return this.numerPokojuField;
-            }
-            set {
-                this.numerPokojuField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public Karta[] hand {
-            get {
-                return this.handField;
-            }
-            set {
-                this.handField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public Karta[] najUklad {
-            get {
-                return this.najUkladField;
-            }
-            set {
-                this.najUkladField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int kicker {
-            get {
-                return this.kickerField;
-            }
-            set {
-                this.kickerField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public bool fold {
-            get {
-                return this.foldField;
-            }
-            set {
-                this.foldField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int wart {
-            get {
-                return this.wartField;
-            }
-            set {
-                this.wartField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string nazwaUkladu {
-            get {
-                return this.nazwaUkladuField;
-            }
-            set {
-                this.nazwaUkladuField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public bool start {
-            get {
-                return this.startField;
-            }
-            set {
-                this.startField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18060")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class Key {
-        
-        private long identyfikatorUzytkownikaField;
-        
-        private string tokenField;
-        
-        /// <remarks/>
-        public long identyfikatorUzytkownika {
-            get {
-                return this.identyfikatorUzytkownikaField;
-            }
-            set {
-                this.identyfikatorUzytkownikaField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string token {
-            get {
-                return this.tokenField;
-            }
-            set {
-                this.tokenField = value;
+                this.kodKomunikatuField = value;
             }
         }
     }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    public delegate void HelloWorldCompletedEventHandler(object sender, HelloWorldCompletedEventArgs e);
+    public delegate void ZwrocZalogowanychCompletedEventHandler(object sender, ZwrocZalogowanychCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class HelloWorldCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class ZwrocZalogowanychCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal HelloWorldCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal ZwrocZalogowanychCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
         
         /// <remarks/>
-        public string Result {
+        public Uzytkownik[] Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
+                return ((Uzytkownik[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void dodajZwCompletedEventHandler(object sender, dodajZwCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class dodajZwCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal dodajZwCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public bool Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
             }
         }
     }
@@ -872,6 +686,58 @@ namespace ClientWindowsFormsApplication1.Glowny {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void SprawdzNazweCompletedEventHandler(object sender, SprawdzNazweCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class SprawdzNazweCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal SprawdzNazweCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Komunikat Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Komunikat)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void SprawdzEmailCompletedEventHandler(object sender, SprawdzEmailCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class SprawdzEmailCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal SprawdzEmailCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Komunikat Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Komunikat)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
     public delegate void ZalogujCompletedEventHandler(object sender, ZalogujCompletedEventArgs e);
     
     /// <remarks/>
@@ -888,10 +754,10 @@ namespace ClientWindowsFormsApplication1.Glowny {
         }
         
         /// <remarks/>
-        public Komunikat Result {
+        public byte[] Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((Komunikat)(this.results[0]));
+                return ((byte[])(this.results[0]));
             }
         }
     }
@@ -918,110 +784,6 @@ namespace ClientWindowsFormsApplication1.Glowny {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((Komunikat)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    public delegate void ZmienHasloCompletedEventHandler(object sender, ZmienHasloCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class ZmienHasloCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal ZmienHasloCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public Komunikat Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((Komunikat)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    public delegate void ResetujHasloCompletedEventHandler(object sender, ResetujHasloCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class ResetujHasloCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal ResetujHasloCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public Komunikat Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((Komunikat)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    public delegate void UsunKontoCompletedEventHandler(object sender, UsunKontoCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class UsunKontoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal UsunKontoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public Komunikat Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((Komunikat)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    public delegate void PobierzTokenyCompletedEventHandler(object sender, PobierzTokenyCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class PobierzTokenyCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal PobierzTokenyCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public Key[] Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((Key[])(this.results[0]));
             }
         }
     }

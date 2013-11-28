@@ -13,7 +13,10 @@ using System.Net;
 namespace ClientWindowsFormsApplication1
 {
     public partial class Form1 : Form
-    {        
+    {
+        List<Label> etykietyKart = new List<Label>();
+        bool rozdanie = true;
+        bool start = false;
         public Form1()
         {
             InitializeComponent();
@@ -26,7 +29,7 @@ namespace ClientWindowsFormsApplication1
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             textBox4.KeyPress += new KeyPressEventHandler(button5_EnterPress);
             textBox3.ReadOnly = true;
-
+            
             comboBox1.MouseClick += comboBox1_MouseClick;
             
         }
@@ -35,11 +38,10 @@ namespace ClientWindowsFormsApplication1
         {
             try
             {
-                Serwisy.kom = Serwisy.serwerGlowny.Zaloguj(textBox1.Text, textBox2.Text);
+                Serwisy.token = Serwisy.serwerGlowny.Zaloguj(textBox1.Text, textBox2.Text);
                 
-                if (Serwisy.kom.kodKomunikatu == 200)
-                {// zalogowanie
-                    Serwisy.token = Serwisy.kom.trescKomunikatu;
+                if (Serwisy.token.Length > 200)
+                {// zalogowanie                    
                     label3.Text = "Nastąpiło poprawne logowanie!";
 
                     button2.Visible = true;
@@ -178,12 +180,12 @@ namespace ClientWindowsFormsApplication1
         private void Form1_Load(object sender, EventArgs e)//ładowanie formy głównej
         {
             timer1.Interval = 500;  //co 0,5s ściąganie wiadomości czatu głównego z serwera 
-            timer2.Interval = 500;
+            timer2.Interval = 10000;
         }
 
         private void timer1_Tick(object sender, EventArgs e)//akcja odczytu wiadomości czatu głównego
         {
-            Wiadomosc[] listaWiad = Serwisy.serwerGlowny.PobierzWiadomosci(Serwisy.token, Serwisy.czasOstatniejWiadGlobal);
+            Wiadomosc[] listaWiad = Serwisy.serwerGlowny.PobierzWiadomosci(Serwisy.token, Serwisy.czasOstatniejWiadGlobal, 0);
 
             for (int i = 0; i < listaWiad.Length; i++)
             {
@@ -238,7 +240,7 @@ namespace ClientWindowsFormsApplication1
 
                 if (Serwisy.wybranyStol)
                 {//jest wybrany stół -> akcja to opóść stół
-                    Serwisy.komR = Serwisy.serwerRozgrywki.OpuscStol(Serwisy.token, Serwisy.pokoj.numerPokoju);
+                    Serwisy.komR = Serwisy.serwerRozgrywki.OpuscStol(Serwisy.token);
 
                     if (Serwisy.komR.kodKomunikatu == 200)
                     {//opuszczenie stołu
@@ -267,6 +269,7 @@ namespace ClientWindowsFormsApplication1
                         button3.Enabled = false;
 
                         tabPage2.Enabled = true;   //karta rozgrywki
+                        timer2.Start();
                     }
                     else
                     {
@@ -283,25 +286,111 @@ namespace ClientWindowsFormsApplication1
             }
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e)//START 
         {
-            Serwisy.komR =  Serwisy.serwerRozgrywki.Start(Serwisy.token, Serwisy.pokoj.numerPokoju);
+            Serwisy.komR =  Serwisy.serwerRozgrywki.Start(Serwisy.token);
+            //Int64 nr = Serwisy.pokoj.numerPokoju;
 
-            MessageBox.Show(Serwisy.komR.trescKomunikatu, Serwisy.komR.kodKomunikatu.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                  
-            Serwisy.czasOstatniejAkcji = 0;
+            if (Serwisy.komR.kodKomunikatu != 200)
+            {
+                MessageBox.Show(Serwisy.komR.trescKomunikatu, Serwisy.komR.kodKomunikatu.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                Serwisy.czasOstatniejAkcji = 0;
+                
+                
+                //Rozgrywki.Pokoj[] pok = Serwisy.serwerRozgrywki.PobierzPokoje(Serwisy.token);
 
+                //Serwisy.pokoje.Clear();
+                //////comboBox1.Items.Clear();
+                //for (int i = 0; i < pok.Length; i++)
+                //{
+                ////{//przepisanie ściągniętej tablicy stołów
+                //    Serwisy.pokoje.Add(pok[i]);
+                //}
+                //Serwisy.pokoj = Serwisy.pokoje.Find(delegate(Pokoj c) { return c.numerPokoju == nr; });
+                //Serwisy.pokoj = Serwisy.serwerRozgrywki.PobierzPokoje(Serwisy.token).Single(delegate(Pokoj c) { return c.nazwaPokoju == Serwisy.str; });
+
+                //foreach (Rozgrywki.Uzytkownik u in Serwisy.pokoj.user)
+
+                UtworzEtykietyKart();
+                start = true;
+                timer2.Start();
+            }
+            //this.Enabled = false;
             //timer2.Start();
+            
         }
 
         private void timer2_Tick(object sender, EventArgs e)//pobieranie akcji
         {
+            
+        }
 
+        void RozdajGraczom()
+        {
+            if (!start)
+                UtworzEtykietyKart();
+            int i = 0;
 
+            //foreach (Akcja a in Serwisy.akcje)
+            //{
+            //    etykietyKart[i].Text = a.kartyGracza[0].figura + " " + a.kartyGracza[0].kolor;
+            //    etykietyKart[i+1].Text = a.kartyGracza[1].figura + " " + a.kartyGracza[1].kolor;
+            //    i += 2;
+            //}
+            if(i>0)
+                rozdanie = false;
 
         }
 
+        void UtworzEtykietyKart()
+        {
+            Int64 nr = Serwisy.pokoj.numerPokoju;
+            Rozgrywki.Pokoj[] pok = Serwisy.serwerRozgrywki.PobierzPokoje(Serwisy.token);
 
+            Serwisy.pokoje.Clear();
+            ////comboBox1.Items.Clear();
+            for (int i = 0; i < pok.Length; i++)
+            {
+                //{//przepisanie ściągniętej tablicy stołów
+                Serwisy.pokoje.Add(pok[i]);
+            }
+
+            Serwisy.pokoj = Serwisy.pokoje.Find(delegate(Pokoj c) { return c.numerPokoju == nr; });
+            for (int i = 0; i < (2 * Serwisy.pokoj.user.Length); i += 2)
+            {
+
+                //etykietyKart.Add(new Label());
+                if (i == 0)
+                {
+                    //etykietyKart[i].Location = new Point(260, 280);
+                    //etykietyKart[i + 1].Location = new Point(260, 295);
+                    etykietyKart.Add(new Label { Text = "1-1", Location = new Point(260, 280) });
+                    etykietyKart.Add(new Label { Text = "1-2", Location = new Point(260, 300) });
+                }
+                else
+                    if (i == 2)
+                    {
+                        //etykietyKart[i].Location = new Point(100, 170);
+                        //etykietyKart[i + 1].Location = new Point(85, 170);
+                        etykietyKart.Add(new Label { Text = "2-1", Location = new Point(85, 170) });
+                        etykietyKart.Add(new Label { Text = "2-2", Location = new Point(85, 185) });
+                    }
+                    else
+                        if (i == 4)
+                        {
+                            //etykietyKart[i].Location = new Point(260, 75);
+                            //etykietyKart[i + 1].Location = new Point(260, 60);
+                            etykietyKart.Add(new Label { Text = "3-1", Location = new Point(260, 75) });
+                            etykietyKart.Add(new Label { Text = "3-2", Location = new Point(260, 50) });
+                        }
+                //RozdajGraczom();
+                tabPage2.Controls.Add(etykietyKart[i]);
+                tabPage2.Controls.Add(etykietyKart[i + 1]);
+            }
+        }
 
     }//koniec klasy Form1
 
@@ -319,10 +408,13 @@ namespace ClientWindowsFormsApplication1
         public static List<Pokoj> pokoje = new List<Pokoj>();
         public static Int32 czasOstatniejAkcji = 0;
 
+        //public static List<Akcja> akcje = new List<Akcja>();
+
         public static bool wybranyStol = false;
 
-        public static string token;
+        public static byte[] token;
         public static string str;
+ 
 
     }
 

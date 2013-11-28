@@ -104,9 +104,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="Web References\Glowny\Glowny.wsdl" />
-    <None Include="Web References\Glowny\Key.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
     <None Include="Web References\Glowny\Komunikat.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -118,9 +115,6 @@
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\Glowny\Wiadomosc.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\Rozgrywki\Akcja.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\Rozgrywki\Karta.datasource">
@@ -137,9 +131,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\Rozgrywki\Rozgrywki.wsdl" />
-    <None Include="Web References\Rozgrywki\Uzytkownik.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
