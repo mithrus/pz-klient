@@ -1,0 +1,5 @@
+F:\Documents\Politechnika Poznańska\V semestr\Praca Zespołowa\pz-primu_15\MainServer\bin\MainServer.dll
+F:\Documents\Politechnika Poznańska\V semestr\Praca Zespołowa\pz-primu_15\MainServer\bin\MainServer.pdb
+F:\Documents\Politechnika Poznańska\V semestr\Praca Zespołowa\pz-primu_15\MainServer\obj\Debug\MainServer.csprojResolveAssemblyReference.cache
+F:\Documents\Politechnika Poznańska\V semestr\Praca Zespołowa\pz-primu_15\MainServer\obj\Debug\MainServer.dll
+F:\Documents\Politechnika Poznańska\V semestr\Praca Zespołowa\pz-primu_15\MainServer\obj\Debug\MainServer.pdb
