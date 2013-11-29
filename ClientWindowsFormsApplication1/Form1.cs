@@ -40,7 +40,7 @@ namespace ClientWindowsFormsApplication1
             {
                 Serwisy.token = Serwisy.serwerGlowny.Zaloguj(textBox1.Text, textBox2.Text);
                 
-                if (Serwisy.token.Length > 200)
+                if (Serwisy.token != null)
                 {// zalogowanie                    
                     label3.Text = "Nastąpiło poprawne logowanie!";
 
@@ -54,14 +54,12 @@ namespace ClientWindowsFormsApplication1
                     Serwisy.pokoj.nazwaPokoju = "";
                     
                     pobierzStoly();
-
                     
-
                     timer1.Enabled = true;  //uruchomienie ściągania nowych wiadomości z czatu głównego
                 }
                 else
                 {// błąd: złe hasło, brak takiego usera
-                    label3.Text = Serwisy.kom.trescKomunikatu;                    
+                    label3.Text = "Błąd logowania";                    
                 }
             }
             catch (Exception exc)

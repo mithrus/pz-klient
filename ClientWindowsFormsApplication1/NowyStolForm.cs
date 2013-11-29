@@ -45,7 +45,7 @@ namespace ClientWindowsFormsApplication1
             {
                 Serwisy.komR = Serwisy.serwerRozgrywki.UtworzStol(Serwisy.token, textBox1.Text, trackBar1.Value, (int)numericUpDown1.Value, (int)numericUpDown2.Value);
                 
-                if (Serwisy.komR.kodKomunikatu == 201)
+                if (Serwisy.komR.kodKomunikatu == 200)
                 {//utworzenie stolu
                     MessageBox.Show(Serwisy.komR.trescKomunikatu, "Nowy stół", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
