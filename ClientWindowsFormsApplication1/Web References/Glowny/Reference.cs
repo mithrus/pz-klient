@@ -43,6 +43,8 @@ namespace ClientWindowsFormsApplication1.Glowny {
         
         private System.Threading.SendOrPostCallback WylogujOperationCompleted;
         
+        private System.Threading.SendOrPostCallback PobierzSwojeIDOperationCompleted;
+        
         private System.Threading.SendOrPostCallback PobierzUzytkownikowOperationCompleted;
         
         private System.Threading.SendOrPostCallback PobierzWiadomosciOperationCompleted;
@@ -107,6 +109,9 @@ namespace ClientWindowsFormsApplication1.Glowny {
         
         /// <remarks/>
         public event WylogujCompletedEventHandler WylogujCompleted;
+        
+        /// <remarks/>
+        public event PobierzSwojeIDCompletedEventHandler PobierzSwojeIDCompleted;
         
         /// <remarks/>
         public event PobierzUzytkownikowCompletedEventHandler PobierzUzytkownikowCompleted;
@@ -320,6 +325,35 @@ namespace ClientWindowsFormsApplication1.Glowny {
             if ((this.WylogujCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.WylogujCompleted(this, new WylogujCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/PobierzSwojeID", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Komunikat PobierzSwojeID([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] token) {
+            object[] results = this.Invoke("PobierzSwojeID", new object[] {
+                        token});
+            return ((Komunikat)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void PobierzSwojeIDAsync(byte[] token) {
+            this.PobierzSwojeIDAsync(token, null);
+        }
+        
+        /// <remarks/>
+        public void PobierzSwojeIDAsync(byte[] token, object userState) {
+            if ((this.PobierzSwojeIDOperationCompleted == null)) {
+                this.PobierzSwojeIDOperationCompleted = new System.Threading.SendOrPostCallback(this.OnPobierzSwojeIDOperationCompleted);
+            }
+            this.InvokeAsync("PobierzSwojeID", new object[] {
+                        token}, this.PobierzSwojeIDOperationCompleted, userState);
+        }
+        
+        private void OnPobierzSwojeIDOperationCompleted(object arg) {
+            if ((this.PobierzSwojeIDCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.PobierzSwojeIDCompleted(this, new PobierzSwojeIDCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -775,6 +809,32 @@ namespace ClientWindowsFormsApplication1.Glowny {
         private object[] results;
         
         internal WylogujCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Komunikat Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Komunikat)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void PobierzSwojeIDCompletedEventHandler(object sender, PobierzSwojeIDCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class PobierzSwojeIDCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal PobierzSwojeIDCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

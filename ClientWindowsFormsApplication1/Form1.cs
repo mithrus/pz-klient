@@ -17,6 +17,12 @@ namespace ClientWindowsFormsApplication1
         List<Label> etykietyKart = new List<Label>();
         bool rozdanie = true;
         bool start = false;
+
+
+        bool mojRuch = false;
+        Rozgrywki.Gra gra = new Gra();
+        Rozgrywki.Gracz ja = new Gracz();
+
         public Form1()
         {
             InitializeComponent();
@@ -30,8 +36,7 @@ namespace ClientWindowsFormsApplication1
             textBox4.KeyPress += new KeyPressEventHandler(button5_EnterPress);
             textBox3.ReadOnly = true;
             
-            comboBox1.MouseClick += comboBox1_MouseClick;
-            
+            comboBox1.MouseClick += comboBox1_MouseClick;  
         }
        
         private void button1_Click_1(object sender, EventArgs e)//ZALOGUJ
@@ -39,7 +44,10 @@ namespace ClientWindowsFormsApplication1
             try
             {
                 Serwisy.token = Serwisy.serwerGlowny.Zaloguj(textBox1.Text, textBox2.Text);
-                
+
+                Serwisy.kom = Serwisy.serwerGlowny.PobierzSwojeID(Serwisy.token);
+
+
                 if (Serwisy.token != null)
                 {// zalogowanie                    
                     label3.Text = "Nastąpiło poprawne logowanie!";
@@ -56,6 +64,12 @@ namespace ClientWindowsFormsApplication1
                     pobierzStoly();
                     
                     timer1.Enabled = true;  //uruchomienie ściągania nowych wiadomości z czatu głównego
+
+                    Serwisy.kom = Serwisy.serwerGlowny.PobierzSwojeID(Serwisy.token);// pobranie swojego id
+
+                    if (Serwisy.kom.kodKomunikatu == 200)
+                        Serwisy.mojID = Int64.Parse(Serwisy.kom.trescKomunikatu);
+
                 }
                 else
                 {// błąd: złe hasło, brak takiego usera
@@ -178,7 +192,7 @@ namespace ClientWindowsFormsApplication1
         private void Form1_Load(object sender, EventArgs e)//ładowanie formy głównej
         {
             timer1.Interval = 500;  //co 0,5s ściąganie wiadomości czatu głównego z serwera 
-            timer2.Interval = 10000;
+            timer2.Interval = 1000;
         }
 
         private void timer1_Tick(object sender, EventArgs e)//akcja odczytu wiadomości czatu głównego
@@ -295,7 +309,7 @@ namespace ClientWindowsFormsApplication1
             }
             else
             {
-                Serwisy.czasOstatniejAkcji = 0;
+                //Serwisy.czasOstatniejAkcji = 0;
                 
 
                 UtworzEtykietyKart();
@@ -309,9 +323,41 @@ namespace ClientWindowsFormsApplication1
 
         private void timer2_Tick(object sender, EventArgs e)//pobieranie akcji
         {
+            gra =Serwisy.serwerRozgrywki.ZwrocGre(Serwisy.token);
 
+            if (gra != null)
+            {
+                label11.Text = gra.pula.ToString(); // na stole
 
+                Rozgrywki.Gracz t = gra.aktywni.Single<Gracz>(delegate (Gracz c){ return c.identyfikatorUzytkownika == Serwisy.mojID;});
+                if (ja != t)
+                {//aktualizacja wszystkiego co związane z naszym graczem
+                    ja = t;
+                    if (gra.stan == Stan.PREFLOP)
+                    {//pobranie kart i wyświetlenie ich
+                        List<Karta> k = new List<Karta>(Serwisy.serwerRozgrywki.PobierzKarty(Serwisy.token));
+                        label5.Text = k[0].figura + " " + k[0].kolor + " || " + k[0].figura + " " + k[0].kolor;
+                    }
+                    label8.Text = ja.kasa.ToString(); // moja kasa
+                    label9.Text = ja.stawia.ToString(); // ile stawiam
 
+                }
+                if (gra.czyjRuch == Serwisy.mojID)
+                {//gdy mój ruch, to można wyłączyć timer                    
+                    numericUpDown1.Minimum = 0;
+                    numericUpDown1.Maximum = ja.kasa;
+                    
+                    
+                    
+                    groupBox4.Visible = true;
+
+                    timer2.Stop();
+                }
+                else
+                {
+                    groupBox4.Visible = false;
+                }
+            }
             
         }
 
@@ -379,6 +425,22 @@ namespace ClientWindowsFormsApplication1
             }
         }
 
+        private void button7_Click(object sender, EventArgs e) // FOLD 
+        {
+            Serwisy.komR = Serwisy.serwerRozgrywki.Fold(Serwisy.token);
+            if(Serwisy.komR.kodKomunikatu == 200)
+                timer2.Start();
+            //else alarm
+        }
+
+        private void button8_Click(object sender, EventArgs e) // CALL / RISE / ALLIN
+        {
+            Serwisy.komR = Serwisy.serwerRozgrywki.CallRiseAllIn(Serwisy.token, (Int64)numericUpDown1.Value);
+            if (Serwisy.komR.kodKomunikatu == 200)
+                timer2.Start();
+            //else alarm
+        }
+
     }//koniec klasy Form1
 
 
@@ -398,6 +460,7 @@ namespace ClientWindowsFormsApplication1
         //public static List<Akcja> akcje = new List<Akcja>();
 
         public static bool wybranyStol = false;
+        public static Int64 mojID;
 
         public static byte[] token;
         public static string str;

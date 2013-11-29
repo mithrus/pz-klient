@@ -47,6 +47,8 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
         
         private System.Threading.SendOrPostCallback CallRiseAllInOperationCompleted;
         
+        private System.Threading.SendOrPostCallback ZwrocGreOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -111,6 +113,9 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
         
         /// <remarks/>
         public event CallRiseAllInCompletedEventHandler CallRiseAllInCompleted;
+        
+        /// <remarks/>
+        public event ZwrocGreCompletedEventHandler ZwrocGreCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/HelloWorld", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -384,6 +389,35 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ZwrocGre", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Gra ZwrocGre([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] token) {
+            object[] results = this.Invoke("ZwrocGre", new object[] {
+                        token});
+            return ((Gra)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ZwrocGreAsync(byte[] token) {
+            this.ZwrocGreAsync(token, null);
+        }
+        
+        /// <remarks/>
+        public void ZwrocGreAsync(byte[] token, object userState) {
+            if ((this.ZwrocGreOperationCompleted == null)) {
+                this.ZwrocGreOperationCompleted = new System.Threading.SendOrPostCallback(this.OnZwrocGreOperationCompleted);
+            }
+            this.InvokeAsync("ZwrocGre", new object[] {
+                        token}, this.ZwrocGreOperationCompleted, userState);
+        }
+        
+        private void OnZwrocGreOperationCompleted(object arg) {
+            if ((this.ZwrocGreCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ZwrocGreCompleted(this, new ZwrocGreCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         public new void CancelAsync(object userState) {
             base.CancelAsync(userState);
         }
@@ -508,6 +542,7 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Gracz))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18060")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -584,6 +619,240 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
             }
             set {
                 this.startField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18060")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class Gra {
+        
+        private Gracz[] userField;
+        
+        private Gracz[] aktywniField;
+        
+        private Stan stanField;
+        
+        private long ktoBigBlindField;
+        
+        private long ktoStawiaField;
+        
+        private long czyjRuchField;
+        
+        private long najwyzszaStawkaField;
+        
+        private long pulaField;
+        
+        private long duzyBlindField;
+        
+        private Karta[] stolField;
+        
+        /// <remarks/>
+        public Gracz[] user {
+            get {
+                return this.userField;
+            }
+            set {
+                this.userField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Gracz[] aktywni {
+            get {
+                return this.aktywniField;
+            }
+            set {
+                this.aktywniField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Stan stan {
+            get {
+                return this.stanField;
+            }
+            set {
+                this.stanField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long ktoBigBlind {
+            get {
+                return this.ktoBigBlindField;
+            }
+            set {
+                this.ktoBigBlindField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long ktoStawia {
+            get {
+                return this.ktoStawiaField;
+            }
+            set {
+                this.ktoStawiaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long czyjRuch {
+            get {
+                return this.czyjRuchField;
+            }
+            set {
+                this.czyjRuchField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long najwyzszaStawka {
+            get {
+                return this.najwyzszaStawkaField;
+            }
+            set {
+                this.najwyzszaStawkaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long pula {
+            get {
+                return this.pulaField;
+            }
+            set {
+                this.pulaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long duzyBlind {
+            get {
+                return this.duzyBlindField;
+            }
+            set {
+                this.duzyBlindField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Karta[] stol {
+            get {
+                return this.stolField;
+            }
+            set {
+                this.stolField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18060")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class Gracz : Uzytkownik {
+        
+        private int kickerField;
+        
+        private Karta[] handWinField;
+        
+        private Karta[] najUkladWinField;
+        
+        private StanGracza stanField;
+        
+        private int wartField;
+        
+        private string nazwaUkladuField;
+        
+        private long kasaField;
+        
+        private long stawiaField;
+        
+        /// <remarks/>
+        public int kicker {
+            get {
+                return this.kickerField;
+            }
+            set {
+                this.kickerField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Karta[] handWin {
+            get {
+                return this.handWinField;
+            }
+            set {
+                this.handWinField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Karta[] najUkladWin {
+            get {
+                return this.najUkladWinField;
+            }
+            set {
+                this.najUkladWinField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public StanGracza stan {
+            get {
+                return this.stanField;
+            }
+            set {
+                this.stanField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int wart {
+            get {
+                return this.wartField;
+            }
+            set {
+                this.wartField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string nazwaUkladu {
+            get {
+                return this.nazwaUkladuField;
+            }
+            set {
+                this.nazwaUkladuField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long kasa {
+            get {
+                return this.kasaField;
+            }
+            set {
+                this.kasaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long stawia {
+            get {
+                return this.stawiaField;
+            }
+            set {
+                this.stawiaField = value;
             }
         }
     }
@@ -684,6 +953,68 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
         
         /// <remarks/>
         trefl,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18060")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public enum StanGracza {
+        
+        /// <remarks/>
+        Fold,
+        
+        /// <remarks/>
+        Call,
+        
+        /// <remarks/>
+        Rise,
+        
+        /// <remarks/>
+        AllIn,
+        
+        /// <remarks/>
+        BigBlind,
+        
+        /// <remarks/>
+        SmallBlind,
+        
+        /// <remarks/>
+        Dealer,
+        
+        /// <remarks/>
+        Ready,
+        
+        /// <remarks/>
+        NotReady,
+        
+        /// <remarks/>
+        Winner,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18060")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public enum Stan {
+        
+        /// <remarks/>
+        PREFLOP,
+        
+        /// <remarks/>
+        FLOP,
+        
+        /// <remarks/>
+        TURN,
+        
+        /// <remarks/>
+        RIVER,
+        
+        /// <remarks/>
+        SHOWDOWN,
+        
+        /// <remarks/>
+        STARTING,
     }
     
     /// <remarks/>
@@ -949,6 +1280,32 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((Komunikat)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void ZwrocGreCompletedEventHandler(object sender, ZwrocGreCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ZwrocGreCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ZwrocGreCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Gra Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Gra)(this.results[0]));
             }
         }
     }

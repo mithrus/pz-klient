@@ -204,6 +204,79 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ZwrocGre">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ZwrocGreResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ZwrocGreResult" type="tns:Gra" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Gra">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="user" type="tns:ArrayOfGracz" />
+          <s:element minOccurs="0" maxOccurs="1" name="aktywni" type="tns:ArrayOfGracz" />
+          <s:element minOccurs="1" maxOccurs="1" name="stan" type="tns:Stan" />
+          <s:element minOccurs="1" maxOccurs="1" name="ktoBigBlind" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="ktoStawia" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="czyjRuch" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="najwyzszaStawka" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="pula" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="duzyBlind" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="stol" type="tns:ArrayOfKarta" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfGracz">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Gracz" nillable="true" type="tns:Gracz" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Gracz">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Uzytkownik">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="kicker" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="handWin" type="tns:ArrayOfKarta" />
+              <s:element minOccurs="0" maxOccurs="1" name="najUkladWin" type="tns:ArrayOfKarta" />
+              <s:element minOccurs="1" maxOccurs="1" name="stan" type="tns:StanGracza" />
+              <s:element minOccurs="1" maxOccurs="1" name="wart" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="nazwaUkladu" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="kasa" type="s:long" />
+              <s:element minOccurs="1" maxOccurs="1" name="stawia" type="s:long" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="StanGracza">
+        <s:restriction base="s:string">
+          <s:enumeration value="Fold" />
+          <s:enumeration value="Call" />
+          <s:enumeration value="Rise" />
+          <s:enumeration value="AllIn" />
+          <s:enumeration value="BigBlind" />
+          <s:enumeration value="SmallBlind" />
+          <s:enumeration value="Dealer" />
+          <s:enumeration value="Ready" />
+          <s:enumeration value="NotReady" />
+          <s:enumeration value="Winner" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="Stan">
+        <s:restriction base="s:string">
+          <s:enumeration value="PREFLOP" />
+          <s:enumeration value="FLOP" />
+          <s:enumeration value="TURN" />
+          <s:enumeration value="RIVER" />
+          <s:enumeration value="SHOWDOWN" />
+          <s:enumeration value="STARTING" />
+        </s:restriction>
+      </s:simpleType>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="HelloWorldSoapIn">
@@ -260,6 +333,12 @@
   <wsdl:message name="CallRiseAllInSoapOut">
     <wsdl:part name="parameters" element="tns:CallRiseAllInResponse" />
   </wsdl:message>
+  <wsdl:message name="ZwrocGreSoapIn">
+    <wsdl:part name="parameters" element="tns:ZwrocGre" />
+  </wsdl:message>
+  <wsdl:message name="ZwrocGreSoapOut">
+    <wsdl:part name="parameters" element="tns:ZwrocGreResponse" />
+  </wsdl:message>
   <wsdl:portType name="RozgrywkiSoap">
     <wsdl:operation name="HelloWorld">
       <wsdl:input message="tns:HelloWorldSoapIn" />
@@ -296,6 +375,10 @@
     <wsdl:operation name="CallRiseAllIn">
       <wsdl:input message="tns:CallRiseAllInSoapIn" />
       <wsdl:output message="tns:CallRiseAllInSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ZwrocGre">
+      <wsdl:input message="tns:ZwrocGreSoapIn" />
+      <wsdl:output message="tns:ZwrocGreSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="RozgrywkiSoap" type="tns:RozgrywkiSoap">
@@ -381,6 +464,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ZwrocGre">
+      <soap:operation soapAction="http://tempuri.org/ZwrocGre" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="RozgrywkiSoap12" type="tns:RozgrywkiSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -458,6 +550,15 @@
     </wsdl:operation>
     <wsdl:operation name="CallRiseAllIn">
       <soap12:operation soapAction="http://tempuri.org/CallRiseAllIn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ZwrocGre">
+      <soap12:operation soapAction="http://tempuri.org/ZwrocGre" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

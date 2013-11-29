@@ -116,6 +116,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="PobierzSwojeID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PobierzSwojeIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PobierzSwojeIDResult" type="tns:Komunikat" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="PobierzUzytkownikow">
         <s:complexType>
           <s:sequence>
@@ -218,6 +232,12 @@
   <wsdl:message name="WylogujSoapOut">
     <wsdl:part name="parameters" element="tns:WylogujResponse" />
   </wsdl:message>
+  <wsdl:message name="PobierzSwojeIDSoapIn">
+    <wsdl:part name="parameters" element="tns:PobierzSwojeID" />
+  </wsdl:message>
+  <wsdl:message name="PobierzSwojeIDSoapOut">
+    <wsdl:part name="parameters" element="tns:PobierzSwojeIDResponse" />
+  </wsdl:message>
   <wsdl:message name="PobierzUzytkownikowSoapIn">
     <wsdl:part name="parameters" element="tns:PobierzUzytkownikow" />
   </wsdl:message>
@@ -264,6 +284,10 @@
     <wsdl:operation name="Wyloguj">
       <wsdl:input message="tns:WylogujSoapIn" />
       <wsdl:output message="tns:WylogujSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PobierzSwojeID">
+      <wsdl:input message="tns:PobierzSwojeIDSoapIn" />
+      <wsdl:output message="tns:PobierzSwojeIDSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="PobierzUzytkownikow">
       <wsdl:input message="tns:PobierzUzytkownikowSoapIn" />
@@ -336,6 +360,15 @@
     </wsdl:operation>
     <wsdl:operation name="Wyloguj">
       <soap:operation soapAction="http://tempuri.org/Wyloguj" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PobierzSwojeID">
+      <soap:operation soapAction="http://tempuri.org/PobierzSwojeID" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -429,6 +462,15 @@
     </wsdl:operation>
     <wsdl:operation name="Wyloguj">
       <soap12:operation soapAction="http://tempuri.org/Wyloguj" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PobierzSwojeID">
+      <soap12:operation soapAction="http://tempuri.org/PobierzSwojeID" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
