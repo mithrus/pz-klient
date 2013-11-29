@@ -297,20 +297,6 @@ namespace ClientWindowsFormsApplication1
             {
                 Serwisy.czasOstatniejAkcji = 0;
                 
-                
-                //Rozgrywki.Pokoj[] pok = Serwisy.serwerRozgrywki.PobierzPokoje(Serwisy.token);
-
-                //Serwisy.pokoje.Clear();
-                //////comboBox1.Items.Clear();
-                //for (int i = 0; i < pok.Length; i++)
-                //{
-                ////{//przepisanie ściągniętej tablicy stołów
-                //    Serwisy.pokoje.Add(pok[i]);
-                //}
-                //Serwisy.pokoj = Serwisy.pokoje.Find(delegate(Pokoj c) { return c.numerPokoju == nr; });
-                //Serwisy.pokoj = Serwisy.serwerRozgrywki.PobierzPokoje(Serwisy.token).Single(delegate(Pokoj c) { return c.nazwaPokoju == Serwisy.str; });
-
-                //foreach (Rozgrywki.Uzytkownik u in Serwisy.pokoj.user)
 
                 UtworzEtykietyKart();
                 start = true;
@@ -323,6 +309,9 @@ namespace ClientWindowsFormsApplication1
 
         private void timer2_Tick(object sender, EventArgs e)//pobieranie akcji
         {
+
+
+
             
         }
 
