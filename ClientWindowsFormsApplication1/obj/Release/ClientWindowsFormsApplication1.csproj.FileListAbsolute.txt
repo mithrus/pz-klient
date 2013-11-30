@@ -1,0 +1,12 @@
+C:\Users\HP\Documents\GitHub\pz-klient\ClientWindowsFormsApplication1\bin\Release\ClientWindowsFormsApplication1.exe.config
+C:\Users\HP\Documents\GitHub\pz-klient\ClientWindowsFormsApplication1\bin\Release\ClientWindowsFormsApplication1.exe
+C:\Users\HP\Documents\GitHub\pz-klient\ClientWindowsFormsApplication1\bin\Release\ClientWindowsFormsApplication1.XmlSerializers.dll
+C:\Users\HP\Documents\GitHub\pz-klient\ClientWindowsFormsApplication1\bin\Release\ClientWindowsFormsApplication1.pdb
+C:\Users\HP\Documents\GitHub\pz-klient\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.Form1.resources
+C:\Users\HP\Documents\GitHub\pz-klient\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.NowyStolForm.resources
+C:\Users\HP\Documents\GitHub\pz-klient\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.Properties.Resources.resources
+C:\Users\HP\Documents\GitHub\pz-klient\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.RejestracjaDiag.resources
+C:\Users\HP\Documents\GitHub\pz-klient\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\HP\Documents\GitHub\pz-klient\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.exe
+C:\Users\HP\Documents\GitHub\pz-klient\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.pdb
+C:\Users\HP\Documents\GitHub\pz-klient\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.XmlSerializers.dll
