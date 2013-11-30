@@ -349,6 +349,7 @@ namespace ClientWindowsFormsApplication1
                         {
                             textBox6.AppendText(stol[i].figura+" "+ stol[i].kolor+ " || ");
                         }
+
                     }
                 }
                 if (gra.czyjRuch == Serwisy.mojID)
