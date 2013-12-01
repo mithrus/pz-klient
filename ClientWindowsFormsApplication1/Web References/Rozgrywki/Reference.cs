@@ -29,6 +29,8 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
     [System.Web.Services.WebServiceBindingAttribute(Name="RozgrywkiSoap", Namespace="http://tempuri.org/")]
     public partial class Rozgrywki : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
+        private System.Threading.SendOrPostCallback PobierzGraczaOperationCompleted;
+        
         private System.Threading.SendOrPostCallback zwrocStolOperationCompleted;
         
         private System.Threading.SendOrPostCallback PobierzPokojeOperationCompleted;
@@ -88,6 +90,9 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
         }
         
         /// <remarks/>
+        public event PobierzGraczaCompletedEventHandler PobierzGraczaCompleted;
+        
+        /// <remarks/>
         public event zwrocStolCompletedEventHandler zwrocStolCompleted;
         
         /// <remarks/>
@@ -116,6 +121,37 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
         
         /// <remarks/>
         public event ZwrocGreCompletedEventHandler ZwrocGreCompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/PobierzGracza", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Gracz PobierzGracza([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] token, long mojID) {
+            object[] results = this.Invoke("PobierzGracza", new object[] {
+                        token,
+                        mojID});
+            return ((Gracz)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void PobierzGraczaAsync(byte[] token, long mojID) {
+            this.PobierzGraczaAsync(token, mojID, null);
+        }
+        
+        /// <remarks/>
+        public void PobierzGraczaAsync(byte[] token, long mojID, object userState) {
+            if ((this.PobierzGraczaOperationCompleted == null)) {
+                this.PobierzGraczaOperationCompleted = new System.Threading.SendOrPostCallback(this.OnPobierzGraczaOperationCompleted);
+            }
+            this.InvokeAsync("PobierzGracza", new object[] {
+                        token,
+                        mojID}, this.PobierzGraczaOperationCompleted, userState);
+        }
+        
+        private void OnPobierzGraczaOperationCompleted(object arg) {
+            if ((this.PobierzGraczaCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.PobierzGraczaCompleted(this, new PobierzGraczaCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/zwrocStol", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -444,6 +480,123 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class Gracz : Uzytkownik {
+        
+        private int kickerField;
+        
+        private Karta[] handWinField;
+        
+        private Karta[] najUkladWinField;
+        
+        private StanGracza stanField;
+        
+        private int wartField;
+        
+        private string nazwaUkladuField;
+        
+        private bool czyPobralKartyField;
+        
+        private long kasaField;
+        
+        private long stawiaField;
+        
+        /// <remarks/>
+        public int kicker {
+            get {
+                return this.kickerField;
+            }
+            set {
+                this.kickerField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Karta[] handWin {
+            get {
+                return this.handWinField;
+            }
+            set {
+                this.handWinField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Karta[] najUkladWin {
+            get {
+                return this.najUkladWinField;
+            }
+            set {
+                this.najUkladWinField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public StanGracza stan {
+            get {
+                return this.stanField;
+            }
+            set {
+                this.stanField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int wart {
+            get {
+                return this.wartField;
+            }
+            set {
+                this.wartField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string nazwaUkladu {
+            get {
+                return this.nazwaUkladuField;
+            }
+            set {
+                this.nazwaUkladuField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool czyPobralKarty {
+            get {
+                return this.czyPobralKartyField;
+            }
+            set {
+                this.czyPobralKartyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long kasa {
+            get {
+                return this.kasaField;
+            }
+            set {
+                this.kasaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long stawia {
+            get {
+                return this.stawiaField;
+            }
+            set {
+                this.stawiaField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.17929")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class Karta {
         
         private figuraKarty figuraField;
@@ -668,242 +821,6 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.17929")]
     [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class Gracz : Uzytkownik {
-        
-        private int kickerField;
-        
-        private Karta[] handWinField;
-        
-        private Karta[] najUkladWinField;
-        
-        private StanGracza stanField;
-        
-        private int wartField;
-        
-        private string nazwaUkladuField;
-        
-        private bool czyPobralKartyField;
-        
-        private long kasaField;
-        
-        private long stawiaField;
-        
-        /// <remarks/>
-        public int kicker {
-            get {
-                return this.kickerField;
-            }
-            set {
-                this.kickerField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public Karta[] handWin {
-            get {
-                return this.handWinField;
-            }
-            set {
-                this.handWinField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public Karta[] najUkladWin {
-            get {
-                return this.najUkladWinField;
-            }
-            set {
-                this.najUkladWinField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public StanGracza stan {
-            get {
-                return this.stanField;
-            }
-            set {
-                this.stanField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int wart {
-            get {
-                return this.wartField;
-            }
-            set {
-                this.wartField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string nazwaUkladu {
-            get {
-                return this.nazwaUkladuField;
-            }
-            set {
-                this.nazwaUkladuField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public bool czyPobralKarty {
-            get {
-                return this.czyPobralKartyField;
-            }
-            set {
-                this.czyPobralKartyField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long kasa {
-            get {
-                return this.kasaField;
-            }
-            set {
-                this.kasaField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long stawia {
-            get {
-                return this.stawiaField;
-            }
-            set {
-                this.stawiaField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.17929")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public enum StanGracza {
-        
-        /// <remarks/>
-        Fold,
-        
-        /// <remarks/>
-        Call,
-        
-        /// <remarks/>
-        Rise,
-        
-        /// <remarks/>
-        AllIn,
-        
-        /// <remarks/>
-        BigBlind,
-        
-        /// <remarks/>
-        SmallBlind,
-        
-        /// <remarks/>
-        Dealer,
-        
-        /// <remarks/>
-        Ready,
-        
-        /// <remarks/>
-        NotReady,
-        
-        /// <remarks/>
-        Winner,
-    }
-    
-    /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Gracz))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.17929")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class Uzytkownik {
-        
-        private long identyfikatorUzytkownikaField;
-        
-        private string nazwaUzytkownikaField;
-        
-        private long numerPokojuField;
-        
-        private long kasioraField;
-        
-        private bool foldField;
-        
-        private bool startField;
-        
-        /// <remarks/>
-        public long identyfikatorUzytkownika {
-            get {
-                return this.identyfikatorUzytkownikaField;
-            }
-            set {
-                this.identyfikatorUzytkownikaField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string nazwaUzytkownika {
-            get {
-                return this.nazwaUzytkownikaField;
-            }
-            set {
-                this.nazwaUzytkownikaField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long numerPokoju {
-            get {
-                return this.numerPokojuField;
-            }
-            set {
-                this.numerPokojuField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long kasiora {
-            get {
-                return this.kasioraField;
-            }
-            set {
-                this.kasioraField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public bool fold {
-            get {
-                return this.foldField;
-            }
-            set {
-                this.foldField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public bool start {
-            get {
-                return this.startField;
-            }
-            set {
-                this.startField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.17929")]
-    [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public enum Stan {
         
@@ -1060,6 +977,151 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
             }
             set {
                 this.userField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Gracz))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.17929")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class Uzytkownik {
+        
+        private long identyfikatorUzytkownikaField;
+        
+        private string nazwaUzytkownikaField;
+        
+        private long numerPokojuField;
+        
+        private long kasioraField;
+        
+        private bool foldField;
+        
+        private bool startField;
+        
+        /// <remarks/>
+        public long identyfikatorUzytkownika {
+            get {
+                return this.identyfikatorUzytkownikaField;
+            }
+            set {
+                this.identyfikatorUzytkownikaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string nazwaUzytkownika {
+            get {
+                return this.nazwaUzytkownikaField;
+            }
+            set {
+                this.nazwaUzytkownikaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long numerPokoju {
+            get {
+                return this.numerPokojuField;
+            }
+            set {
+                this.numerPokojuField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long kasiora {
+            get {
+                return this.kasioraField;
+            }
+            set {
+                this.kasioraField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool fold {
+            get {
+                return this.foldField;
+            }
+            set {
+                this.foldField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool start {
+            get {
+                return this.startField;
+            }
+            set {
+                this.startField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.17929")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public enum StanGracza {
+        
+        /// <remarks/>
+        Fold,
+        
+        /// <remarks/>
+        Call,
+        
+        /// <remarks/>
+        Rise,
+        
+        /// <remarks/>
+        AllIn,
+        
+        /// <remarks/>
+        BigBlind,
+        
+        /// <remarks/>
+        SmallBlind,
+        
+        /// <remarks/>
+        Dealer,
+        
+        /// <remarks/>
+        Ready,
+        
+        /// <remarks/>
+        NotReady,
+        
+        /// <remarks/>
+        Winner,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void PobierzGraczaCompletedEventHandler(object sender, PobierzGraczaCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class PobierzGraczaCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal PobierzGraczaCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Gracz Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Gracz)(this.results[0]));
             }
         }
     }

@@ -120,6 +120,9 @@
     <None Include="Web References\Rozgrywki\Gra.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\Rozgrywki\Gracz.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\Rozgrywki\Karta.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>

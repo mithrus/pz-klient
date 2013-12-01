@@ -329,29 +329,38 @@ namespace ClientWindowsFormsApplication1
             {
                 label11.Text = gra.pula.ToString(); // na stole
                 List<Gracz> aa = new List<Gracz>(gra.aktywni);
-                Rozgrywki.Gracz t = gra.aktywni.Single<Gracz>(delegate (Gracz c){ return c.identyfikatorUzytkownika == Serwisy.mojID;});
-                if (ja != t)
-                {//aktualizacja wszystkiego co związane z naszym graczem
-                    ja = t;
-                    if (gra.stan == Stan.PREFLOP)
-                    {//pobranie kart i wyświetlenie ich
-                        List<Karta> k = new List<Karta>(Serwisy.serwerRozgrywki.PobierzKarty(Serwisy.token));
-                        label5.Text = k[0].figura + " " + k[0].kolor + " || " + k[1].figura + " " + k[1].kolor;
-                       
-                    }
-                    label8.Text = ja.kasa.ToString(); // moja kasa
-                    label9.Text = ja.stawia.ToString(); // ile stawiam
-                    if (gra.stan == Stan.FLOP)
-                    {
-                        List<Karta> stol=new List<Karta>(Serwisy.serwerRozgrywki.zwrocStol(Serwisy.token));
-                        textBox6.Clear();
-                        for (int i = 0; i < stol.Count; i++)
-                        {
-                            textBox6.AppendText(stol[i].figura+" "+ stol[i].kolor+ " || ");
-                        }
+                //=============
+                if(Serwisy.serwerRozgrywki.PobierzGracza(Serwisy.token, Serwisy.mojID)!=null)
+                //if (gra.aktywni.Single<Gracz>(delegate(Gracz c) { return c.identyfikatorUzytkownika == Serwisy.mojID; }) != null)
+                {
+                    Rozgrywki.Gracz t =  gra.aktywni.Single<Gracz>(delegate(Gracz c) { return c.identyfikatorUzytkownika == Serwisy.mojID; });
 
+                    if (t != null)
+                    {
+                        if (ja != t)
+                        {//aktualizacja wszystkiego co związane z naszym graczem
+                            ja = t;
+                            if (gra.stan == Stan.PREFLOP)
+                            {//pobranie kart i wyświetlenie ich
+                                List<Karta> k = new List<Karta>(Serwisy.serwerRozgrywki.PobierzKarty(Serwisy.token));
+                                label5.Text = k[0].figura + " " + k[0].kolor + " || " + k[1].figura + " " + k[1].kolor;
+
+                            }
+                            label8.Text = ja.kasa.ToString(); // moja kasa
+                            label9.Text = ja.stawia.ToString(); // ile stawiam
+                            if (gra.stan == Stan.FLOP)
+                            {
+                                List<Karta> stol = new List<Karta>(Serwisy.serwerRozgrywki.zwrocStol(Serwisy.token));
+                                textBox6.Clear();
+                                for (int i = 0; i < stol.Count; i++)
+                                {
+                                    textBox6.AppendText(stol[i].figura + " " + stol[i].kolor + " || ");
+                                }
+
+                            }
+                        }
                     }
-                }
+                }//==================
                 if (gra.czyjRuch == Serwisy.mojID)
                 {//gdy mój ruch, to można wyłączyć timer                    
                     numericUpDown1.Minimum = 0;
