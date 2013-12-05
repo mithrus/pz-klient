@@ -2,6 +2,20 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="NazwaMojegoUkladu">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NazwaMojegoUkladuResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NazwaMojegoUkladuResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="PobierzGracza">
         <s:complexType>
           <s:sequence>
@@ -297,8 +311,20 @@
           <s:enumeration value="STARTING" />
         </s:restriction>
       </s:simpleType>
+      <s:element name="CzyscStoly">
+        <s:complexType />
+      </s:element>
+      <s:element name="CzyscStolyResponse">
+        <s:complexType />
+      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="NazwaMojegoUkladuSoapIn">
+    <wsdl:part name="parameters" element="tns:NazwaMojegoUkladu" />
+  </wsdl:message>
+  <wsdl:message name="NazwaMojegoUkladuSoapOut">
+    <wsdl:part name="parameters" element="tns:NazwaMojegoUkladuResponse" />
+  </wsdl:message>
   <wsdl:message name="PobierzGraczaSoapIn">
     <wsdl:part name="parameters" element="tns:PobierzGracza" />
   </wsdl:message>
@@ -365,7 +391,17 @@
   <wsdl:message name="ZwrocGreSoapOut">
     <wsdl:part name="parameters" element="tns:ZwrocGreResponse" />
   </wsdl:message>
+  <wsdl:message name="CzyscStolySoapIn">
+    <wsdl:part name="parameters" element="tns:CzyscStoly" />
+  </wsdl:message>
+  <wsdl:message name="CzyscStolySoapOut">
+    <wsdl:part name="parameters" element="tns:CzyscStolyResponse" />
+  </wsdl:message>
   <wsdl:portType name="RozgrywkiSoap">
+    <wsdl:operation name="NazwaMojegoUkladu">
+      <wsdl:input message="tns:NazwaMojegoUkladuSoapIn" />
+      <wsdl:output message="tns:NazwaMojegoUkladuSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="PobierzGracza">
       <wsdl:input message="tns:PobierzGraczaSoapIn" />
       <wsdl:output message="tns:PobierzGraczaSoapOut" />
@@ -410,9 +446,22 @@
       <wsdl:input message="tns:ZwrocGreSoapIn" />
       <wsdl:output message="tns:ZwrocGreSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CzyscStoly">
+      <wsdl:input message="tns:CzyscStolySoapIn" />
+      <wsdl:output message="tns:CzyscStolySoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="RozgrywkiSoap" type="tns:RozgrywkiSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="NazwaMojegoUkladu">
+      <soap:operation soapAction="http://tempuri.org/NazwaMojegoUkladu" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="PobierzGracza">
       <soap:operation soapAction="http://tempuri.org/PobierzGracza" style="document" />
       <wsdl:input>
@@ -512,9 +561,27 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CzyscStoly">
+      <soap:operation soapAction="http://tempuri.org/CzyscStoly" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="RozgrywkiSoap12" type="tns:RozgrywkiSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="NazwaMojegoUkladu">
+      <soap12:operation soapAction="http://tempuri.org/NazwaMojegoUkladu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="PobierzGracza">
       <soap12:operation soapAction="http://tempuri.org/PobierzGracza" style="document" />
       <wsdl:input>
@@ -607,6 +674,15 @@
     </wsdl:operation>
     <wsdl:operation name="ZwrocGre">
       <soap12:operation soapAction="http://tempuri.org/ZwrocGre" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CzyscStoly">
+      <soap12:operation soapAction="http://tempuri.org/CzyscStoly" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

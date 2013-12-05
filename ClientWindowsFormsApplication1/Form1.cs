@@ -21,7 +21,7 @@ namespace ClientWindowsFormsApplication1
 
         bool mojRuch = false;
         Rozgrywki.Gra gra = new Gra();
-        Rozgrywki.Gracz ja = new Gracz();
+        Rozgrywki.Gracz ja = new Gracz();        
 
         public Form1()
         {
@@ -35,12 +35,13 @@ namespace ClientWindowsFormsApplication1
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             textBox4.KeyPress += new KeyPressEventHandler(button5_EnterPress);
             textBox3.ReadOnly = true;
-            
+            groupBox4.Visible = false;
+
             comboBox1.MouseClick += comboBox1_MouseClick;  
         }
        
         private void button1_Click_1(object sender, EventArgs e)//ZALOGUJ
-        {
+        {         
             try
             {
                 Serwisy.token = Serwisy.serwerGlowny.Zaloguj(textBox1.Text, textBox2.Text);
@@ -310,11 +311,10 @@ namespace ClientWindowsFormsApplication1
             else
             {
                 //Serwisy.czasOstatniejAkcji = 0;
-                
-
-                UtworzEtykietyKart();
-                start = true;
+                //UtworzEtykietyKart();
+                start = true;             
                 timer2.Start();
+
             }
             //this.Enabled = false;
             //timer2.Start();
@@ -348,7 +348,7 @@ namespace ClientWindowsFormsApplication1
                             }
                             label8.Text = ja.kasa.ToString(); // moja kasa
                             label9.Text = ja.stawia.ToString(); // ile stawiam
-                            if (gra.stan == Stan.FLOP)
+                            if (gra.stan == Stan.FLOP || gra.stan == Stan.TURN || gra.stan == Stan.RIVER)
                             {
                                 List<Karta> stol = new List<Karta>(Serwisy.serwerRozgrywki.zwrocStol(Serwisy.token));
                                 textBox6.Clear();
@@ -356,7 +356,7 @@ namespace ClientWindowsFormsApplication1
                                 {
                                     textBox6.AppendText(stol[i].figura + " " + stol[i].kolor + " || ");
                                 }
-
+                                label12.Text = Serwisy.serwerRozgrywki.NazwaMojegoUkladu(Serwisy.token);
                             }
                         }
                     }
@@ -379,7 +379,7 @@ namespace ClientWindowsFormsApplication1
             }
             
         }
-
+/*
         void RozdajGraczom()
         {
             if (!start)
@@ -443,7 +443,7 @@ namespace ClientWindowsFormsApplication1
                 tabPage2.Controls.Add(etykietyKart[i + 1]);
             }
         }
-
+*/
         private void button7_Click(object sender, EventArgs e) // FOLD 
         {
             Serwisy.komR = Serwisy.serwerRozgrywki.Fold(Serwisy.token);

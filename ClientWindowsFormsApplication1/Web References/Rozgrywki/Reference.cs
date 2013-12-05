@@ -29,6 +29,8 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
     [System.Web.Services.WebServiceBindingAttribute(Name="RozgrywkiSoap", Namespace="http://tempuri.org/")]
     public partial class Rozgrywki : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
+        private System.Threading.SendOrPostCallback NazwaMojegoUkladuOperationCompleted;
+        
         private System.Threading.SendOrPostCallback PobierzGraczaOperationCompleted;
         
         private System.Threading.SendOrPostCallback zwrocStolOperationCompleted;
@@ -50,6 +52,8 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
         private System.Threading.SendOrPostCallback CallRiseAllInOperationCompleted;
         
         private System.Threading.SendOrPostCallback ZwrocGreOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CzyscStolyOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
         
@@ -90,6 +94,9 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
         }
         
         /// <remarks/>
+        public event NazwaMojegoUkladuCompletedEventHandler NazwaMojegoUkladuCompleted;
+        
+        /// <remarks/>
         public event PobierzGraczaCompletedEventHandler PobierzGraczaCompleted;
         
         /// <remarks/>
@@ -121,6 +128,38 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
         
         /// <remarks/>
         public event ZwrocGreCompletedEventHandler ZwrocGreCompleted;
+        
+        /// <remarks/>
+        public event CzyscStolyCompletedEventHandler CzyscStolyCompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/NazwaMojegoUkladu", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public string NazwaMojegoUkladu([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] token) {
+            object[] results = this.Invoke("NazwaMojegoUkladu", new object[] {
+                        token});
+            return ((string)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void NazwaMojegoUkladuAsync(byte[] token) {
+            this.NazwaMojegoUkladuAsync(token, null);
+        }
+        
+        /// <remarks/>
+        public void NazwaMojegoUkladuAsync(byte[] token, object userState) {
+            if ((this.NazwaMojegoUkladuOperationCompleted == null)) {
+                this.NazwaMojegoUkladuOperationCompleted = new System.Threading.SendOrPostCallback(this.OnNazwaMojegoUkladuOperationCompleted);
+            }
+            this.InvokeAsync("NazwaMojegoUkladu", new object[] {
+                        token}, this.NazwaMojegoUkladuOperationCompleted, userState);
+        }
+        
+        private void OnNazwaMojegoUkladuOperationCompleted(object arg) {
+            if ((this.NazwaMojegoUkladuCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.NazwaMojegoUkladuCompleted(this, new NazwaMojegoUkladuCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/PobierzGracza", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -452,6 +491,32 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
             if ((this.ZwrocGreCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.ZwrocGreCompleted(this, new ZwrocGreCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/CzyscStoly", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void CzyscStoly() {
+            this.Invoke("CzyscStoly", new object[0]);
+        }
+        
+        /// <remarks/>
+        public void CzyscStolyAsync() {
+            this.CzyscStolyAsync(null);
+        }
+        
+        /// <remarks/>
+        public void CzyscStolyAsync(object userState) {
+            if ((this.CzyscStolyOperationCompleted == null)) {
+                this.CzyscStolyOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCzyscStolyOperationCompleted);
+            }
+            this.InvokeAsync("CzyscStoly", new object[0], this.CzyscStolyOperationCompleted, userState);
+        }
+        
+        private void OnCzyscStolyOperationCompleted(object arg) {
+            if ((this.CzyscStolyCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CzyscStolyCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -1102,6 +1167,32 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void NazwaMojegoUkladuCompletedEventHandler(object sender, NazwaMojegoUkladuCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class NazwaMojegoUkladuCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal NazwaMojegoUkladuCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
     public delegate void PobierzGraczaCompletedEventHandler(object sender, PobierzGraczaCompletedEventArgs e);
     
     /// <remarks/>
@@ -1385,6 +1476,10 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
             }
         }
     }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void CzyscStolyCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
 }
 
 #pragma warning restore 1591
