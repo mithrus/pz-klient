@@ -29,7 +29,23 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
     [System.Web.Services.WebServiceBindingAttribute(Name="RozgrywkiSoap", Namespace="http://tempuri.org/")]
     public partial class Rozgrywki : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
+        private System.Threading.SendOrPostCallback ustawNoweRozOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback czyWynikiOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback NoweRozOperationCompleted;
+        
         private System.Threading.SendOrPostCallback NazwaMojegoUkladuOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CzyJestWaktywnychOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback MojNajUklOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ZwrocUserowStartOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ZwrocGraczyOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback ZwrocNajUklGraczyOperationCompleted;
         
         private System.Threading.SendOrPostCallback PobierzGraczaOperationCompleted;
         
@@ -94,7 +110,31 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
         }
         
         /// <remarks/>
+        public event ustawNoweRozCompletedEventHandler ustawNoweRozCompleted;
+        
+        /// <remarks/>
+        public event czyWynikiCompletedEventHandler czyWynikiCompleted;
+        
+        /// <remarks/>
+        public event NoweRozCompletedEventHandler NoweRozCompleted;
+        
+        /// <remarks/>
         public event NazwaMojegoUkladuCompletedEventHandler NazwaMojegoUkladuCompleted;
+        
+        /// <remarks/>
+        public event CzyJestWaktywnychCompletedEventHandler CzyJestWaktywnychCompleted;
+        
+        /// <remarks/>
+        public event MojNajUklCompletedEventHandler MojNajUklCompleted;
+        
+        /// <remarks/>
+        public event ZwrocUserowStartCompletedEventHandler ZwrocUserowStartCompleted;
+        
+        /// <remarks/>
+        public event ZwrocGraczyCompletedEventHandler ZwrocGraczyCompleted;
+        
+        /// <remarks/>
+        public event ZwrocNajUklGraczyCompletedEventHandler ZwrocNajUklGraczyCompleted;
         
         /// <remarks/>
         public event PobierzGraczaCompletedEventHandler PobierzGraczaCompleted;
@@ -133,6 +173,91 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
         public event CzyscStolyCompletedEventHandler CzyscStolyCompleted;
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ustawNoweRoz", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void ustawNoweRoz([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] token) {
+            this.Invoke("ustawNoweRoz", new object[] {
+                        token});
+        }
+        
+        /// <remarks/>
+        public void ustawNoweRozAsync(byte[] token) {
+            this.ustawNoweRozAsync(token, null);
+        }
+        
+        /// <remarks/>
+        public void ustawNoweRozAsync(byte[] token, object userState) {
+            if ((this.ustawNoweRozOperationCompleted == null)) {
+                this.ustawNoweRozOperationCompleted = new System.Threading.SendOrPostCallback(this.OnustawNoweRozOperationCompleted);
+            }
+            this.InvokeAsync("ustawNoweRoz", new object[] {
+                        token}, this.ustawNoweRozOperationCompleted, userState);
+        }
+        
+        private void OnustawNoweRozOperationCompleted(object arg) {
+            if ((this.ustawNoweRozCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ustawNoweRozCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/czyWyniki", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public bool czyWyniki([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] token) {
+            object[] results = this.Invoke("czyWyniki", new object[] {
+                        token});
+            return ((bool)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void czyWynikiAsync(byte[] token) {
+            this.czyWynikiAsync(token, null);
+        }
+        
+        /// <remarks/>
+        public void czyWynikiAsync(byte[] token, object userState) {
+            if ((this.czyWynikiOperationCompleted == null)) {
+                this.czyWynikiOperationCompleted = new System.Threading.SendOrPostCallback(this.OnczyWynikiOperationCompleted);
+            }
+            this.InvokeAsync("czyWyniki", new object[] {
+                        token}, this.czyWynikiOperationCompleted, userState);
+        }
+        
+        private void OnczyWynikiOperationCompleted(object arg) {
+            if ((this.czyWynikiCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.czyWynikiCompleted(this, new czyWynikiCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/NoweRoz", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void NoweRoz([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] token) {
+            this.Invoke("NoweRoz", new object[] {
+                        token});
+        }
+        
+        /// <remarks/>
+        public void NoweRozAsync(byte[] token) {
+            this.NoweRozAsync(token, null);
+        }
+        
+        /// <remarks/>
+        public void NoweRozAsync(byte[] token, object userState) {
+            if ((this.NoweRozOperationCompleted == null)) {
+                this.NoweRozOperationCompleted = new System.Threading.SendOrPostCallback(this.OnNoweRozOperationCompleted);
+            }
+            this.InvokeAsync("NoweRoz", new object[] {
+                        token}, this.NoweRozOperationCompleted, userState);
+        }
+        
+        private void OnNoweRozOperationCompleted(object arg) {
+            if ((this.NoweRozCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.NoweRozCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/NazwaMojegoUkladu", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string NazwaMojegoUkladu([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] token) {
             object[] results = this.Invoke("NazwaMojegoUkladu", new object[] {
@@ -158,6 +283,155 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
             if ((this.NazwaMojegoUkladuCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.NazwaMojegoUkladuCompleted(this, new NazwaMojegoUkladuCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/CzyJestWaktywnych", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public bool CzyJestWaktywnych([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] token, long idGracza) {
+            object[] results = this.Invoke("CzyJestWaktywnych", new object[] {
+                        token,
+                        idGracza});
+            return ((bool)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CzyJestWaktywnychAsync(byte[] token, long idGracza) {
+            this.CzyJestWaktywnychAsync(token, idGracza, null);
+        }
+        
+        /// <remarks/>
+        public void CzyJestWaktywnychAsync(byte[] token, long idGracza, object userState) {
+            if ((this.CzyJestWaktywnychOperationCompleted == null)) {
+                this.CzyJestWaktywnychOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCzyJestWaktywnychOperationCompleted);
+            }
+            this.InvokeAsync("CzyJestWaktywnych", new object[] {
+                        token,
+                        idGracza}, this.CzyJestWaktywnychOperationCompleted, userState);
+        }
+        
+        private void OnCzyJestWaktywnychOperationCompleted(object arg) {
+            if ((this.CzyJestWaktywnychCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CzyJestWaktywnychCompleted(this, new CzyJestWaktywnychCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/MojNajUkl", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Karta[] MojNajUkl([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] token) {
+            object[] results = this.Invoke("MojNajUkl", new object[] {
+                        token});
+            return ((Karta[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void MojNajUklAsync(byte[] token) {
+            this.MojNajUklAsync(token, null);
+        }
+        
+        /// <remarks/>
+        public void MojNajUklAsync(byte[] token, object userState) {
+            if ((this.MojNajUklOperationCompleted == null)) {
+                this.MojNajUklOperationCompleted = new System.Threading.SendOrPostCallback(this.OnMojNajUklOperationCompleted);
+            }
+            this.InvokeAsync("MojNajUkl", new object[] {
+                        token}, this.MojNajUklOperationCompleted, userState);
+        }
+        
+        private void OnMojNajUklOperationCompleted(object arg) {
+            if ((this.MojNajUklCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.MojNajUklCompleted(this, new MojNajUklCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ZwrocUserowStart", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Uzytkownik[] ZwrocUserowStart([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] token) {
+            object[] results = this.Invoke("ZwrocUserowStart", new object[] {
+                        token});
+            return ((Uzytkownik[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ZwrocUserowStartAsync(byte[] token) {
+            this.ZwrocUserowStartAsync(token, null);
+        }
+        
+        /// <remarks/>
+        public void ZwrocUserowStartAsync(byte[] token, object userState) {
+            if ((this.ZwrocUserowStartOperationCompleted == null)) {
+                this.ZwrocUserowStartOperationCompleted = new System.Threading.SendOrPostCallback(this.OnZwrocUserowStartOperationCompleted);
+            }
+            this.InvokeAsync("ZwrocUserowStart", new object[] {
+                        token}, this.ZwrocUserowStartOperationCompleted, userState);
+        }
+        
+        private void OnZwrocUserowStartOperationCompleted(object arg) {
+            if ((this.ZwrocUserowStartCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ZwrocUserowStartCompleted(this, new ZwrocUserowStartCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ZwrocGraczy", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Gracz[] ZwrocGraczy([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] token) {
+            object[] results = this.Invoke("ZwrocGraczy", new object[] {
+                        token});
+            return ((Gracz[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ZwrocGraczyAsync(byte[] token) {
+            this.ZwrocGraczyAsync(token, null);
+        }
+        
+        /// <remarks/>
+        public void ZwrocGraczyAsync(byte[] token, object userState) {
+            if ((this.ZwrocGraczyOperationCompleted == null)) {
+                this.ZwrocGraczyOperationCompleted = new System.Threading.SendOrPostCallback(this.OnZwrocGraczyOperationCompleted);
+            }
+            this.InvokeAsync("ZwrocGraczy", new object[] {
+                        token}, this.ZwrocGraczyOperationCompleted, userState);
+        }
+        
+        private void OnZwrocGraczyOperationCompleted(object arg) {
+            if ((this.ZwrocGraczyCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ZwrocGraczyCompleted(this, new ZwrocGraczyCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/ZwrocNajUklGraczy", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Karta[] ZwrocNajUklGraczy([System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")] byte[] token, long idGracza) {
+            object[] results = this.Invoke("ZwrocNajUklGraczy", new object[] {
+                        token,
+                        idGracza});
+            return ((Karta[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void ZwrocNajUklGraczyAsync(byte[] token, long idGracza) {
+            this.ZwrocNajUklGraczyAsync(token, idGracza, null);
+        }
+        
+        /// <remarks/>
+        public void ZwrocNajUklGraczyAsync(byte[] token, long idGracza, object userState) {
+            if ((this.ZwrocNajUklGraczyOperationCompleted == null)) {
+                this.ZwrocNajUklGraczyOperationCompleted = new System.Threading.SendOrPostCallback(this.OnZwrocNajUklGraczyOperationCompleted);
+            }
+            this.InvokeAsync("ZwrocNajUklGraczy", new object[] {
+                        token,
+                        idGracza}, this.ZwrocNajUklGraczyOperationCompleted, userState);
+        }
+        
+        private void OnZwrocNajUklGraczyOperationCompleted(object arg) {
+            if ((this.ZwrocNajUklGraczyCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.ZwrocNajUklGraczyCompleted(this, new ZwrocNajUklGraczyCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -545,123 +819,6 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class Gracz : Uzytkownik {
-        
-        private int kickerField;
-        
-        private Karta[] handWinField;
-        
-        private Karta[] najUkladWinField;
-        
-        private StanGracza stanField;
-        
-        private int wartField;
-        
-        private string nazwaUkladuField;
-        
-        private bool czyPobralKartyField;
-        
-        private long kasaField;
-        
-        private long stawiaField;
-        
-        /// <remarks/>
-        public int kicker {
-            get {
-                return this.kickerField;
-            }
-            set {
-                this.kickerField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public Karta[] handWin {
-            get {
-                return this.handWinField;
-            }
-            set {
-                this.handWinField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public Karta[] najUkladWin {
-            get {
-                return this.najUkladWinField;
-            }
-            set {
-                this.najUkladWinField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public StanGracza stan {
-            get {
-                return this.stanField;
-            }
-            set {
-                this.stanField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int wart {
-            get {
-                return this.wartField;
-            }
-            set {
-                this.wartField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string nazwaUkladu {
-            get {
-                return this.nazwaUkladuField;
-            }
-            set {
-                this.nazwaUkladuField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public bool czyPobralKarty {
-            get {
-                return this.czyPobralKartyField;
-            }
-            set {
-                this.czyPobralKartyField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long kasa {
-            get {
-                return this.kasaField;
-            }
-            set {
-                this.kasaField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long stawia {
-            get {
-                return this.stawiaField;
-            }
-            set {
-                this.stawiaField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.17929")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class Karta {
         
         private figuraKarty figuraField;
@@ -782,6 +939,10 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
         
         private Karta[] stolField;
         
+        private Gracz[] listaWinField;
+        
+        private bool wynikiField;
+        
         /// <remarks/>
         public Gracz[] user {
             get {
@@ -879,6 +1040,295 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
             }
             set {
                 this.stolField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Gracz[] listaWin {
+            get {
+                return this.listaWinField;
+            }
+            set {
+                this.listaWinField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool wyniki {
+            get {
+                return this.wynikiField;
+            }
+            set {
+                this.wynikiField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.17929")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class Gracz : Uzytkownik {
+        
+        private int kickerField;
+        
+        private Karta[] handWinField;
+        
+        private Karta[] najUkladWinField;
+        
+        private StanGracza stanField;
+        
+        private int wartField;
+        
+        private string nazwaUkladuField;
+        
+        private bool czyPobralKartyField;
+        
+        private bool czyNoweRozdanieField;
+        
+        private long kasaField;
+        
+        private long stawiaField;
+        
+        private UkladyKart uklField;
+        
+        /// <remarks/>
+        public int kicker {
+            get {
+                return this.kickerField;
+            }
+            set {
+                this.kickerField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Karta[] handWin {
+            get {
+                return this.handWinField;
+            }
+            set {
+                this.handWinField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public Karta[] najUkladWin {
+            get {
+                return this.najUkladWinField;
+            }
+            set {
+                this.najUkladWinField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public StanGracza stan {
+            get {
+                return this.stanField;
+            }
+            set {
+                this.stanField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int wart {
+            get {
+                return this.wartField;
+            }
+            set {
+                this.wartField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string nazwaUkladu {
+            get {
+                return this.nazwaUkladuField;
+            }
+            set {
+                this.nazwaUkladuField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool czyPobralKarty {
+            get {
+                return this.czyPobralKartyField;
+            }
+            set {
+                this.czyPobralKartyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool czyNoweRozdanie {
+            get {
+                return this.czyNoweRozdanieField;
+            }
+            set {
+                this.czyNoweRozdanieField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long kasa {
+            get {
+                return this.kasaField;
+            }
+            set {
+                this.kasaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long stawia {
+            get {
+                return this.stawiaField;
+            }
+            set {
+                this.stawiaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public UkladyKart ukl {
+            get {
+                return this.uklField;
+            }
+            set {
+                this.uklField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.17929")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public enum StanGracza {
+        
+        /// <remarks/>
+        Fold,
+        
+        /// <remarks/>
+        Call,
+        
+        /// <remarks/>
+        Rise,
+        
+        /// <remarks/>
+        AllIn,
+        
+        /// <remarks/>
+        BigBlind,
+        
+        /// <remarks/>
+        SmallBlind,
+        
+        /// <remarks/>
+        Dealer,
+        
+        /// <remarks/>
+        Ready,
+        
+        /// <remarks/>
+        NotReady,
+        
+        /// <remarks/>
+        Winner,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.17929")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class UkladyKart {
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Gracz))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.17929")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class Uzytkownik {
+        
+        private long identyfikatorUzytkownikaField;
+        
+        private string nazwaUzytkownikaField;
+        
+        private long numerPokojuField;
+        
+        private long kasioraField;
+        
+        private bool foldField;
+        
+        private bool startField;
+        
+        /// <remarks/>
+        public long identyfikatorUzytkownika {
+            get {
+                return this.identyfikatorUzytkownikaField;
+            }
+            set {
+                this.identyfikatorUzytkownikaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string nazwaUzytkownika {
+            get {
+                return this.nazwaUzytkownikaField;
+            }
+            set {
+                this.nazwaUzytkownikaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long numerPokoju {
+            get {
+                return this.numerPokojuField;
+            }
+            set {
+                this.numerPokojuField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long kasiora {
+            get {
+                return this.kasioraField;
+            }
+            set {
+                this.kasioraField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool fold {
+            get {
+                return this.foldField;
+            }
+            set {
+                this.foldField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool start {
+            get {
+                return this.startField;
+            }
+            set {
+                this.startField = value;
             }
         }
     }
@@ -1047,123 +1497,38 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(Gracz))]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.17929")]
-    [System.SerializableAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void ustawNoweRozCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void czyWynikiCompletedEventHandler(object sender, czyWynikiCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public partial class Uzytkownik {
+    public partial class czyWynikiCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
-        private long identyfikatorUzytkownikaField;
+        private object[] results;
         
-        private string nazwaUzytkownikaField;
-        
-        private long numerPokojuField;
-        
-        private long kasioraField;
-        
-        private bool foldField;
-        
-        private bool startField;
-        
-        /// <remarks/>
-        public long identyfikatorUzytkownika {
-            get {
-                return this.identyfikatorUzytkownikaField;
-            }
-            set {
-                this.identyfikatorUzytkownikaField = value;
-            }
+        internal czyWynikiCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
         }
         
         /// <remarks/>
-        public string nazwaUzytkownika {
+        public bool Result {
             get {
-                return this.nazwaUzytkownikaField;
-            }
-            set {
-                this.nazwaUzytkownikaField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long numerPokoju {
-            get {
-                return this.numerPokojuField;
-            }
-            set {
-                this.numerPokojuField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public long kasiora {
-            get {
-                return this.kasioraField;
-            }
-            set {
-                this.kasioraField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public bool fold {
-            get {
-                return this.foldField;
-            }
-            set {
-                this.foldField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public bool start {
-            get {
-                return this.startField;
-            }
-            set {
-                this.startField = value;
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
             }
         }
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.17929")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
-    public enum StanGracza {
-        
-        /// <remarks/>
-        Fold,
-        
-        /// <remarks/>
-        Call,
-        
-        /// <remarks/>
-        Rise,
-        
-        /// <remarks/>
-        AllIn,
-        
-        /// <remarks/>
-        BigBlind,
-        
-        /// <remarks/>
-        SmallBlind,
-        
-        /// <remarks/>
-        Dealer,
-        
-        /// <remarks/>
-        Ready,
-        
-        /// <remarks/>
-        NotReady,
-        
-        /// <remarks/>
-        Winner,
-    }
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void NoweRozCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
@@ -1187,6 +1552,136 @@ namespace ClientWindowsFormsApplication1.Rozgrywki {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void CzyJestWaktywnychCompletedEventHandler(object sender, CzyJestWaktywnychCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CzyJestWaktywnychCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CzyJestWaktywnychCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public bool Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void MojNajUklCompletedEventHandler(object sender, MojNajUklCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class MojNajUklCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal MojNajUklCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Karta[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Karta[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void ZwrocUserowStartCompletedEventHandler(object sender, ZwrocUserowStartCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ZwrocUserowStartCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ZwrocUserowStartCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Uzytkownik[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Uzytkownik[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void ZwrocGraczyCompletedEventHandler(object sender, ZwrocGraczyCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ZwrocGraczyCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ZwrocGraczyCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Gracz[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Gracz[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    public delegate void ZwrocNajUklGraczyCompletedEventHandler(object sender, ZwrocNajUklGraczyCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.0.30319.17929")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class ZwrocNajUklGraczyCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal ZwrocNajUklGraczyCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Karta[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Karta[])(this.results[0]));
             }
         }
     }

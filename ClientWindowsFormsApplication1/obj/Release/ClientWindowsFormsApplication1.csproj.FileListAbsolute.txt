@@ -10,3 +10,16 @@ C:\Users\HP\Documents\GitHub\pz-klient\ClientWindowsFormsApplication1\obj\Releas
 C:\Users\HP\Documents\GitHub\pz-klient\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.exe
 C:\Users\HP\Documents\GitHub\pz-klient\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.pdb
 C:\Users\HP\Documents\GitHub\pz-klient\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.XmlSerializers.dll
+C:\Users\HP\Desktop\pz-klient-pawels\ClientWindowsFormsApplication1\bin\Release\ClientWindowsFormsApplication1.exe.config
+C:\Users\HP\Desktop\pz-klient-pawels\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.exe
+C:\Users\HP\Desktop\pz-klient-pawels\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.pdb
+C:\Users\HP\Desktop\pz-klient-pawels\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.XmlSerializers.dll
+C:\Users\HP\Desktop\pz-klient-pawels\ClientWindowsFormsApplication1\bin\Release\ClientWindowsFormsApplication1.exe
+C:\Users\HP\Desktop\pz-klient-pawels\ClientWindowsFormsApplication1\bin\Release\ClientWindowsFormsApplication1.XmlSerializers.dll
+C:\Users\HP\Desktop\pz-klient-pawels\ClientWindowsFormsApplication1\bin\Release\ClientWindowsFormsApplication1.pdb
+C:\Users\HP\Desktop\pz-klient-pawels\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\HP\Desktop\pz-klient-pawels\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.Form1.resources
+C:\Users\HP\Desktop\pz-klient-pawels\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.NowyStolForm.resources
+C:\Users\HP\Desktop\pz-klient-pawels\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.Properties.Resources.resources
+C:\Users\HP\Desktop\pz-klient-pawels\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.RejestracjaDiag.resources
+C:\Users\HP\Desktop\pz-klient-pawels\ClientWindowsFormsApplication1\obj\Release\ClientWindowsFormsApplication1.csproj.GenerateResource.Cache

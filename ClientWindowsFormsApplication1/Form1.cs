@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using ClientWindowsFormsApplication1.Glowny;
 using ClientWindowsFormsApplication1.Rozgrywki;
 using System.Net;
+using System.Threading;
 
 namespace ClientWindowsFormsApplication1
 {
@@ -21,7 +22,13 @@ namespace ClientWindowsFormsApplication1
 
         bool mojRuch = false;
         Rozgrywki.Gra gra = new Gra();
-        Rozgrywki.Gracz ja = new Gracz();        
+        Rozgrywki.Gracz ja = new Gracz();
+        private Thread _xThread;
+
+        List<Button> btn = new List<Button>();
+        List<TextBox> txt = new List<TextBox>();
+        List<Rozgrywki.Uzytkownik> us;
+        List<Karta> stol;
 
         public Form1()
         {
@@ -37,9 +44,34 @@ namespace ClientWindowsFormsApplication1
             textBox3.ReadOnly = true;
             groupBox4.Visible = false;
 
-            comboBox1.MouseClick += comboBox1_MouseClick;  
+            comboBox1.MouseClick += comboBox1_MouseClick;
+
+            paneleGraczy();
         }
-       
+
+        public void paneleGraczy()
+        {
+            int r = 0;
+            for (int i = 0; i < 5; i++)
+            {
+                btn.Add(new Button());
+                btn[i].BackColor = Color.DeepSkyBlue;
+                btn[i].Location = new Point(20 + r, 30);
+                btn[i].Size = new System.Drawing.Size(25, 25);
+                btn[i].Visible = false;
+                btn[i].Enabled = false;
+                tabPage2.Controls.Add(btn[i]);
+                txt.Add(new TextBox());
+                txt[i].Location = new Point(5 + r, 60);
+                txt[i].Multiline = true;
+                txt[i].Size = new System.Drawing.Size(100, 120);
+                txt[i].ReadOnly = true;
+                txt[i].Visible = false;
+                tabPage2.Controls.Add(txt[i]);
+                r += 130;
+            }
+        }
+
         private void button1_Click_1(object sender, EventArgs e)//ZALOGUJ
         {         
             try
@@ -323,127 +355,189 @@ namespace ClientWindowsFormsApplication1
 
         private void timer2_Tick(object sender, EventArgs e)//pobieranie akcji
         {
-            gra =Serwisy.serwerRozgrywki.ZwrocGre(Serwisy.token);
-
-            if (gra != null)
+            try
             {
-                label11.Text = gra.pula.ToString(); // na stole
-                List<Gracz> aa = new List<Gracz>(gra.aktywni);
-                //=============
-                if(Serwisy.serwerRozgrywki.PobierzGracza(Serwisy.token, Serwisy.mojID)!=null)
-                //if (gra.aktywni.Single<Gracz>(delegate(Gracz c) { return c.identyfikatorUzytkownika == Serwisy.mojID; }) != null)
+                gra = Serwisy.serwerRozgrywki.ZwrocGre(Serwisy.token);
+                ////odświeżanie innych graczy przed wciśnienciem startu
+                if (gra == null)
                 {
-                    Rozgrywki.Gracz t =  gra.aktywni.Single<Gracz>(delegate(Gracz c) { return c.identyfikatorUzytkownika == Serwisy.mojID; });
-
-                    if (t != null)
+                    /*List<Rozgrywki.Uzytkownik>*/
+                    us = new List<Rozgrywki.Uzytkownik>(Serwisy.serwerRozgrywki.ZwrocUserowStart(Serwisy.token));
+                    int index = us.FindIndex(delegate(Rozgrywki.Uzytkownik a) { return a.identyfikatorUzytkownika == Serwisy.mojID; });
+                    for (int i = 0; i < us.Count; i++)
                     {
-                        if (ja != t)
-                        {//aktualizacja wszystkiego co związane z naszym graczem
-                            ja = t;
-                            if (gra.stan == Stan.PREFLOP)
-                            {//pobranie kart i wyświetlenie ich
-                                List<Karta> k = new List<Karta>(Serwisy.serwerRozgrywki.PobierzKarty(Serwisy.token));
-                                label5.Text = k[0].figura + " " + k[0].kolor + " || " + k[1].figura + " " + k[1].kolor;
-
-                            }
-                            label8.Text = ja.kasa.ToString(); // moja kasa
-                            label9.Text = ja.stawia.ToString(); // ile stawiam
-                            if (gra.stan == Stan.FLOP || gra.stan == Stan.TURN || gra.stan == Stan.RIVER)
-                            {
-                                List<Karta> stol = new List<Karta>(Serwisy.serwerRozgrywki.zwrocStol(Serwisy.token));
-                                textBox6.Clear();
-                                for (int i = 0; i < stol.Count; i++)
-                                {
-                                    textBox6.AppendText(stol[i].figura + " " + stol[i].kolor + " || ");
-                                }
-                                label12.Text = Serwisy.serwerRozgrywki.NazwaMojegoUkladu(Serwisy.token);
-                            }
-                        }
-                    }
-                }//==================
-                if (gra.czyjRuch == Serwisy.mojID)
-                {//gdy mój ruch, to można wyłączyć timer                    
-                    numericUpDown1.Minimum = 0;
-                    numericUpDown1.Maximum = ja.kasa;
-                    
-                    
-                    
-                    groupBox4.Visible = true;
-
-                    //timer2.Stop();
-                }
-                else
-                {
-                    groupBox4.Visible = false;
-                }
-            }
-            
-        }
-/*
-        void RozdajGraczom()
-        {
-            if (!start)
-                UtworzEtykietyKart();
-            int i = 0;
-
-            //foreach (Akcja a in Serwisy.akcje)
-            //{
-            //    etykietyKart[i].Text = a.kartyGracza[0].figura + " " + a.kartyGracza[0].kolor;
-            //    etykietyKart[i+1].Text = a.kartyGracza[1].figura + " " + a.kartyGracza[1].kolor;
-            //    i += 2;
-            //}
-            if(i>0)
-                rozdanie = false;
-
-        }
-
-        void UtworzEtykietyKart()
-        {
-            Int64 nr = Serwisy.pokoj.numerPokoju;
-            Rozgrywki.Pokoj[] pok = Serwisy.serwerRozgrywki.PobierzPokoje(Serwisy.token);
-
-            Serwisy.pokoje.Clear();
-            ////comboBox1.Items.Clear();
-            for (int i = 0; i < pok.Length; i++)
-            {
-                //{//przepisanie ściągniętej tablicy stołów
-                Serwisy.pokoje.Add(pok[i]);
-            }
-
-            Serwisy.pokoj = Serwisy.pokoje.Find(delegate(Pokoj c) { return c.numerPokoju == nr; });
-            for (int i = 0; i < (2 * Serwisy.pokoj.user.Length); i += 2)
-            {
-
-                //etykietyKart.Add(new Label());
-                if (i == 0)
-                {
-                    //etykietyKart[i].Location = new Point(260, 280);
-                    //etykietyKart[i + 1].Location = new Point(260, 295);
-                    etykietyKart.Add(new Label { Text = "1-1", Location = new Point(260, 280) });
-                    etykietyKart.Add(new Label { Text = "1-2", Location = new Point(260, 300) });
-                }
-                else
-                    if (i == 2)
-                    {
-                        //etykietyKart[i].Location = new Point(100, 170);
-                        //etykietyKart[i + 1].Location = new Point(85, 170);
-                        etykietyKart.Add(new Label { Text = "2-1", Location = new Point(85, 170) });
-                        etykietyKart.Add(new Label { Text = "2-2", Location = new Point(85, 185) });
-                    }
-                    else
-                        if (i == 4)
+                        if (i == index)
                         {
-                            //etykietyKart[i].Location = new Point(260, 75);
-                            //etykietyKart[i + 1].Location = new Point(260, 60);
-                            etykietyKart.Add(new Label { Text = "3-1", Location = new Point(260, 75) });
-                            etykietyKart.Add(new Label { Text = "3-2", Location = new Point(260, 50) });
+                            btn[i].Text = us[i].nazwaUzytkownika;
+                            btn[i].BackColor = Color.Red;
+                            btn[i].Visible = true;
+                            txt[i].Visible = true;
+
                         }
-                //RozdajGraczom();
-                tabPage2.Controls.Add(etykietyKart[i]);
-                tabPage2.Controls.Add(etykietyKart[i + 1]);
+                        else
+                        {
+                            btn[i].Text = us[i].nazwaUzytkownika;
+                            btn[i].Visible = true;
+                            txt[i].Visible = true;
+                        }
+                    }
+                    //for (int i = 0; i < index; i++)
+                    //{
+                    //    btn[i].Text = us[i].nazwaUzytkownika;
+                    //    btn[i].Visible = true;                    
+                    //}
+
+                }
+                else
+
+                    if (gra != null)
+                    {
+                        daneUserow();
+                        if (gra.stan == Stan.SHOWDOWN)
+                        {
+                            label9.Text = "0";
+                            label11.Text = "0";
+                            textBox7.Clear();
+                            textBox7.Text = "Wygrani: \n";
+                            List<Gracz> win = new List<Gracz>(gra.listaWin);
+                            for (int i = 0; i < win.Count; i++)
+                                textBox7.AppendText(win[i].identyfikatorUzytkownika.ToString() + " " + win[i].nazwaUzytkownika + " || ");
+                        }
+
+
+                        label11.Text = gra.pula.ToString(); // na stole
+                        List<Gracz> aa = new List<Gracz>(gra.aktywni);
+                        //=============
+                        if (Serwisy.serwerRozgrywki.PobierzGracza(Serwisy.token, Serwisy.mojID) != null)
+                        //if (gra.aktywni.Single<Gracz>(delegate(Gracz c) { return c.identyfikatorUzytkownika == Serwisy.mojID; }) != null)
+                        {
+                            Rozgrywki.Gracz t = gra.aktywni.Single<Gracz>(delegate(Gracz c) { return c.identyfikatorUzytkownika == Serwisy.mojID; });
+
+                            if (t != null)
+                            {
+                                if (ja != t)
+                                {//aktualizacja wszystkiego co związane z naszym graczem
+                                    ja = t;
+                                    if (gra.stan == Stan.PREFLOP)
+                                    {//pobranie kart i wyświetlenie ich
+                                        textBox6.Clear();//czyszczenie wyświetlania stołu
+                                        textBox7.Clear();//czyszczenie wyświetlania wygranych
+                                        textBox8.Clear();//czyszczenie wyswietlania najlepszego ukladu
+                                        label12.Text = "Twoj uklad";
+                                        List<Karta> k = new List<Karta>(Serwisy.serwerRozgrywki.PobierzKarty(Serwisy.token));
+                                        label5.Text = k[0].figura + " " + k[0].kolor + " || " + k[1].figura + " " + k[1].kolor;
+
+                                    }
+                                    label8.Text = ja.kasa.ToString(); // moja kasa
+                                    label9.Text = ja.stawia.ToString(); // ile stawiam
+                                    if (gra.stan == Stan.FLOP || gra.stan == Stan.TURN || gra.stan == Stan.RIVER)
+                                    {
+                                        /*List<Karta>*/
+                                        stol = new List<Karta>(Serwisy.serwerRozgrywki.zwrocStol(Serwisy.token));
+                                        textBox6.Clear();
+                                        for (int i = 0; i < stol.Count; i++)
+                                        {
+                                            textBox6.AppendText(stol[i].figura + " " + stol[i].kolor + " || ");
+                                        }
+                                        label12.Text = Serwisy.serwerRozgrywki.NazwaMojegoUkladu(Serwisy.token);
+
+                                        textBox8.Clear();//wyswietlanie najlepszego ukladu
+                                        List<Karta> najUkl = new List<Karta>(Serwisy.serwerRozgrywki.MojNajUkl(Serwisy.token));
+                                        for (int i = 0; i < najUkl.Count; i++)
+                                        {
+                                            textBox8.AppendText(najUkl[i].figura + " " + najUkl[i].kolor + " || ");
+                                        }
+                                    }
+
+                                }
+                            }
+
+                        }//==================
+
+                        //===========
+                        if (gra.czyjRuch == Serwisy.mojID)
+                        {//gdy mój ruch, to można wyłączyć timer                    
+                            numericUpDown1.Minimum = 0;
+                            numericUpDown1.Maximum = ja.kasa;
+
+                            groupBox4.Visible = true;
+
+                            //timer2.Stop();
+                        }
+                        else
+                        {
+                            groupBox4.Visible = false;
+                        }
+                        if (Serwisy.serwerRozgrywki.czyWyniki(Serwisy.token) == true)
+                            button9.Visible = true;
+                        else
+                            button9.Visible = false;
+
+                    }
+            }
+            catch (Exception exc)
+            {
             }
         }
-*/
+
+        public void daneUserow()
+        {
+            try
+            {
+                List<Gracz> gr = new List<Gracz>(Serwisy.serwerRozgrywki.ZwrocGraczy(Serwisy.token));
+                if (gr != null)
+                {
+                    int index = gr.FindIndex(delegate(Gracz a) { return a.identyfikatorUzytkownika == Serwisy.mojID; });
+                    if (index >= 0)
+                    {
+                        for (int i = 0; i < gr.Count; i++)
+                        {
+                            if (gra.czyjRuch == gr[i].identyfikatorUzytkownika)
+                                txt[i].BackColor = Color.SkyBlue;
+                            else
+                                txt[i].BackColor = Color.White;
+
+                            int idx = gr.FindIndex(delegate(Gracz a) { return a.identyfikatorUzytkownika == us[i].identyfikatorUzytkownika; });
+                            if (idx >= 0)
+                            {
+                                if (i == index)
+                                {
+                                    txt[i].Clear();
+                                    txt[i].AppendText("Nazwa: " + gr[idx].nazwaUzytkownika + "||Kasa: " + gr[idx].kasa + "|| stawia: " + gr[idx].stawia + "|| Stan: " + gr[idx].stan);
+
+                                }
+                                else
+                                {
+                                    txt[i].Clear();
+                                    txt[i].AppendText("Nazwa: " + gr[idx].nazwaUzytkownika + "||Kasa: " + gr[idx].kasa + "|| stawia: " + gr[idx].stawia + "|| Stan: " + gr[idx].stan);
+                                    if (gra.stan == Stan.SHOWDOWN)
+                                    {
+                                        if (Serwisy.serwerRozgrywki.CzyJestWaktywnych(Serwisy.token, gr[idx].identyfikatorUzytkownika) == true)
+                                        {
+                                            if (gr[idx].stan != StanGracza.Fold && stol != null)//&& gr[idx].stan!=StanGracza.Winner)
+                                            {
+                                                txt[i].AppendText("|| Układ: " + gr[idx].nazwaUkladu);
+                                                txt[i].AppendText("|| Karty: \n");
+                                                List<Karta> cards = new List<Karta>(Serwisy.serwerRozgrywki.ZwrocNajUklGraczy(Serwisy.token, gr[idx].identyfikatorUzytkownika));//idx));
+                                                for (int j = 0; j < 5; j++)
+                                                {
+                                                    txt[i].AppendText(cards[j].figura + " " + cards[j].kolor + " || ");
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }// end if idx >= 0
+                        }// end for i
+                    }// end if index>=0
+                }// end if gra!=null
+            }
+            catch (Exception exc)
+            {
+
+            }
+        }
+
         private void button7_Click(object sender, EventArgs e) // FOLD 
         {
             Serwisy.komR = Serwisy.serwerRozgrywki.Fold(Serwisy.token);
@@ -454,12 +548,30 @@ namespace ClientWindowsFormsApplication1
 
         private void button8_Click(object sender, EventArgs e) // CALL / RISE / ALLIN
         {
-            Serwisy.komR = Serwisy.serwerRozgrywki.CallRiseAllIn(Serwisy.token, Convert.ToInt64(textBox5.Text)); //(Int64)numericUpDown1.Value);
+            _xThread = new Thread(funkcja);
+            _xThread.Start();
+           // Serwisy.komR = Serwisy.serwerRozgrywki.CallRiseAllIn(Serwisy.token, Convert.ToInt64(textBox5.Text)); //(Int64)numericUpDown1.Value);
             if (Serwisy.komR.kodKomunikatu == 200)
                 timer2.Start();
+            //else if (Serwisy.komR.kodKomunikatu == 213)
+            //{
+            //    button9.Visible = true;
+
+            //}
             //else alarm
         }
 
+        private void funkcja() // funkcja nowego wątku na call/rise/allin
+        {
+            Serwisy.komR = Serwisy.serwerRozgrywki.CallRiseAllIn(Serwisy.token, Convert.ToInt64(numericUpDown1.Value));//textBox5.Text)); //(Int64)numericUpDown1.Value);
+        }
+
+        private void button9_Click(object sender, EventArgs e) // NOWE ROZDANIE
+        {
+            Serwisy.serwerRozgrywki.ustawNoweRoz(Serwisy.token);
+            button9.Visible = false;
+            //Serwisy.serwerRozgrywki.NoweRoz(Serwisy.token);
+        }
         
 
     }//koniec klasy Form1

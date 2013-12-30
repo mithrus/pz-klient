@@ -2,6 +2,40 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="ustawNoweRoz">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ustawNoweRozResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="czyWyniki">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="czyWynikiResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="czyWynikiResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NoweRoz">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NoweRozResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="NazwaMojegoUkladu">
         <s:complexType>
           <s:sequence>
@@ -16,48 +50,35 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="PobierzGracza">
+      <s:element name="CzyJestWaktywnych">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="token" type="s:base64Binary" />
-            <s:element minOccurs="1" maxOccurs="1" name="mojID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="idGracza" type="s:long" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="PobierzGraczaResponse">
+      <s:element name="CzyJestWaktywnychResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="PobierzGraczaResult" type="tns:Gracz" />
+            <s:element minOccurs="1" maxOccurs="1" name="CzyJestWaktywnychResult" type="s:boolean" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="Gracz">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:Uzytkownik">
-            <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="kicker" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="handWin" type="tns:ArrayOfKarta" />
-              <s:element minOccurs="0" maxOccurs="1" name="najUkladWin" type="tns:ArrayOfKarta" />
-              <s:element minOccurs="1" maxOccurs="1" name="stan" type="tns:StanGracza" />
-              <s:element minOccurs="1" maxOccurs="1" name="wart" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="nazwaUkladu" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="czyPobralKarty" type="s:boolean" />
-              <s:element minOccurs="1" maxOccurs="1" name="kasa" type="s:long" />
-              <s:element minOccurs="1" maxOccurs="1" name="stawia" type="s:long" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="Uzytkownik">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="identyfikatorUzytkownika" type="s:long" />
-          <s:element minOccurs="0" maxOccurs="1" name="nazwaUzytkownika" type="s:string" />
-          <s:element minOccurs="1" maxOccurs="1" name="numerPokoju" type="s:long" />
-          <s:element minOccurs="1" maxOccurs="1" name="kasiora" type="s:long" />
-          <s:element minOccurs="1" maxOccurs="1" name="fold" type="s:boolean" />
-          <s:element minOccurs="1" maxOccurs="1" name="start" type="s:boolean" />
-        </s:sequence>
-      </s:complexType>
+      <s:element name="MojNajUkl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MojNajUklResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MojNajUklResult" type="tns:ArrayOfKarta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:complexType name="ArrayOfKarta">
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="unbounded" name="Karta" nillable="true" type="tns:Karta" />
@@ -94,6 +115,73 @@
           <s:enumeration value="trefl" />
         </s:restriction>
       </s:simpleType>
+      <s:element name="ZwrocUserowStart">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ZwrocUserowStartResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ZwrocUserowStartResult" type="tns:ArrayOfUzytkownik" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfUzytkownik">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Uzytkownik" nillable="true" type="tns:Uzytkownik" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Uzytkownik">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="identyfikatorUzytkownika" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="nazwaUzytkownika" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="numerPokoju" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="kasiora" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="fold" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="start" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ZwrocGraczy">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ZwrocGraczyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ZwrocGraczyResult" type="tns:ArrayOfGracz" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfGracz">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Gracz" nillable="true" type="tns:Gracz" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Gracz">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Uzytkownik">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="kicker" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="handWin" type="tns:ArrayOfKarta" />
+              <s:element minOccurs="0" maxOccurs="1" name="najUkladWin" type="tns:ArrayOfKarta" />
+              <s:element minOccurs="1" maxOccurs="1" name="stan" type="tns:StanGracza" />
+              <s:element minOccurs="1" maxOccurs="1" name="wart" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="nazwaUkladu" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="czyPobralKarty" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="czyNoweRozdanie" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="kasa" type="s:long" />
+              <s:element minOccurs="1" maxOccurs="1" name="stawia" type="s:long" />
+              <s:element minOccurs="0" maxOccurs="1" name="ukl" type="tns:UkladyKart" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
       <s:simpleType name="StanGracza">
         <s:restriction base="s:string">
           <s:enumeration value="Fold" />
@@ -108,6 +196,37 @@
           <s:enumeration value="Winner" />
         </s:restriction>
       </s:simpleType>
+      <s:complexType name="UkladyKart" />
+      <s:element name="ZwrocNajUklGraczy">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="idGracza" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ZwrocNajUklGraczyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ZwrocNajUklGraczyResult" type="tns:ArrayOfKarta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PobierzGracza">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="token" type="s:base64Binary" />
+            <s:element minOccurs="1" maxOccurs="1" name="mojID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PobierzGraczaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PobierzGraczaResult" type="tns:Gracz" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="zwrocStol">
         <s:complexType>
           <s:sequence>
@@ -151,11 +270,6 @@
           <s:element minOccurs="1" maxOccurs="1" name="stawkaWejsciowa" type="s:long" />
           <s:element minOccurs="1" maxOccurs="1" name="duzyBlind" type="s:long" />
           <s:element minOccurs="0" maxOccurs="1" name="user" type="tns:ArrayOfUzytkownik" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfUzytkownik">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Uzytkownik" nillable="true" type="tns:Uzytkownik" />
         </s:sequence>
       </s:complexType>
       <s:element name="DolaczDoStolu">
@@ -294,11 +408,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="pula" type="s:long" />
           <s:element minOccurs="1" maxOccurs="1" name="duzyBlind" type="s:long" />
           <s:element minOccurs="0" maxOccurs="1" name="stol" type="tns:ArrayOfKarta" />
-        </s:sequence>
-      </s:complexType>
-      <s:complexType name="ArrayOfGracz">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="Gracz" nillable="true" type="tns:Gracz" />
+          <s:element minOccurs="0" maxOccurs="1" name="listaWin" type="tns:ArrayOfGracz" />
+          <s:element minOccurs="1" maxOccurs="1" name="wyniki" type="s:boolean" />
         </s:sequence>
       </s:complexType>
       <s:simpleType name="Stan">
@@ -319,11 +430,59 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="ustawNoweRozSoapIn">
+    <wsdl:part name="parameters" element="tns:ustawNoweRoz" />
+  </wsdl:message>
+  <wsdl:message name="ustawNoweRozSoapOut">
+    <wsdl:part name="parameters" element="tns:ustawNoweRozResponse" />
+  </wsdl:message>
+  <wsdl:message name="czyWynikiSoapIn">
+    <wsdl:part name="parameters" element="tns:czyWyniki" />
+  </wsdl:message>
+  <wsdl:message name="czyWynikiSoapOut">
+    <wsdl:part name="parameters" element="tns:czyWynikiResponse" />
+  </wsdl:message>
+  <wsdl:message name="NoweRozSoapIn">
+    <wsdl:part name="parameters" element="tns:NoweRoz" />
+  </wsdl:message>
+  <wsdl:message name="NoweRozSoapOut">
+    <wsdl:part name="parameters" element="tns:NoweRozResponse" />
+  </wsdl:message>
   <wsdl:message name="NazwaMojegoUkladuSoapIn">
     <wsdl:part name="parameters" element="tns:NazwaMojegoUkladu" />
   </wsdl:message>
   <wsdl:message name="NazwaMojegoUkladuSoapOut">
     <wsdl:part name="parameters" element="tns:NazwaMojegoUkladuResponse" />
+  </wsdl:message>
+  <wsdl:message name="CzyJestWaktywnychSoapIn">
+    <wsdl:part name="parameters" element="tns:CzyJestWaktywnych" />
+  </wsdl:message>
+  <wsdl:message name="CzyJestWaktywnychSoapOut">
+    <wsdl:part name="parameters" element="tns:CzyJestWaktywnychResponse" />
+  </wsdl:message>
+  <wsdl:message name="MojNajUklSoapIn">
+    <wsdl:part name="parameters" element="tns:MojNajUkl" />
+  </wsdl:message>
+  <wsdl:message name="MojNajUklSoapOut">
+    <wsdl:part name="parameters" element="tns:MojNajUklResponse" />
+  </wsdl:message>
+  <wsdl:message name="ZwrocUserowStartSoapIn">
+    <wsdl:part name="parameters" element="tns:ZwrocUserowStart" />
+  </wsdl:message>
+  <wsdl:message name="ZwrocUserowStartSoapOut">
+    <wsdl:part name="parameters" element="tns:ZwrocUserowStartResponse" />
+  </wsdl:message>
+  <wsdl:message name="ZwrocGraczySoapIn">
+    <wsdl:part name="parameters" element="tns:ZwrocGraczy" />
+  </wsdl:message>
+  <wsdl:message name="ZwrocGraczySoapOut">
+    <wsdl:part name="parameters" element="tns:ZwrocGraczyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ZwrocNajUklGraczySoapIn">
+    <wsdl:part name="parameters" element="tns:ZwrocNajUklGraczy" />
+  </wsdl:message>
+  <wsdl:message name="ZwrocNajUklGraczySoapOut">
+    <wsdl:part name="parameters" element="tns:ZwrocNajUklGraczyResponse" />
   </wsdl:message>
   <wsdl:message name="PobierzGraczaSoapIn">
     <wsdl:part name="parameters" element="tns:PobierzGracza" />
@@ -398,9 +557,41 @@
     <wsdl:part name="parameters" element="tns:CzyscStolyResponse" />
   </wsdl:message>
   <wsdl:portType name="RozgrywkiSoap">
+    <wsdl:operation name="ustawNoweRoz">
+      <wsdl:input message="tns:ustawNoweRozSoapIn" />
+      <wsdl:output message="tns:ustawNoweRozSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="czyWyniki">
+      <wsdl:input message="tns:czyWynikiSoapIn" />
+      <wsdl:output message="tns:czyWynikiSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NoweRoz">
+      <wsdl:input message="tns:NoweRozSoapIn" />
+      <wsdl:output message="tns:NoweRozSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="NazwaMojegoUkladu">
       <wsdl:input message="tns:NazwaMojegoUkladuSoapIn" />
       <wsdl:output message="tns:NazwaMojegoUkladuSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CzyJestWaktywnych">
+      <wsdl:input message="tns:CzyJestWaktywnychSoapIn" />
+      <wsdl:output message="tns:CzyJestWaktywnychSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MojNajUkl">
+      <wsdl:input message="tns:MojNajUklSoapIn" />
+      <wsdl:output message="tns:MojNajUklSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ZwrocUserowStart">
+      <wsdl:input message="tns:ZwrocUserowStartSoapIn" />
+      <wsdl:output message="tns:ZwrocUserowStartSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ZwrocGraczy">
+      <wsdl:input message="tns:ZwrocGraczySoapIn" />
+      <wsdl:output message="tns:ZwrocGraczySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ZwrocNajUklGraczy">
+      <wsdl:input message="tns:ZwrocNajUklGraczySoapIn" />
+      <wsdl:output message="tns:ZwrocNajUklGraczySoapOut" />
     </wsdl:operation>
     <wsdl:operation name="PobierzGracza">
       <wsdl:input message="tns:PobierzGraczaSoapIn" />
@@ -453,8 +644,80 @@
   </wsdl:portType>
   <wsdl:binding name="RozgrywkiSoap" type="tns:RozgrywkiSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ustawNoweRoz">
+      <soap:operation soapAction="http://tempuri.org/ustawNoweRoz" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="czyWyniki">
+      <soap:operation soapAction="http://tempuri.org/czyWyniki" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NoweRoz">
+      <soap:operation soapAction="http://tempuri.org/NoweRoz" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NazwaMojegoUkladu">
       <soap:operation soapAction="http://tempuri.org/NazwaMojegoUkladu" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CzyJestWaktywnych">
+      <soap:operation soapAction="http://tempuri.org/CzyJestWaktywnych" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MojNajUkl">
+      <soap:operation soapAction="http://tempuri.org/MojNajUkl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ZwrocUserowStart">
+      <soap:operation soapAction="http://tempuri.org/ZwrocUserowStart" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ZwrocGraczy">
+      <soap:operation soapAction="http://tempuri.org/ZwrocGraczy" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ZwrocNajUklGraczy">
+      <soap:operation soapAction="http://tempuri.org/ZwrocNajUklGraczy" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -573,8 +836,80 @@
   </wsdl:binding>
   <wsdl:binding name="RozgrywkiSoap12" type="tns:RozgrywkiSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ustawNoweRoz">
+      <soap12:operation soapAction="http://tempuri.org/ustawNoweRoz" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="czyWyniki">
+      <soap12:operation soapAction="http://tempuri.org/czyWyniki" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NoweRoz">
+      <soap12:operation soapAction="http://tempuri.org/NoweRoz" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NazwaMojegoUkladu">
       <soap12:operation soapAction="http://tempuri.org/NazwaMojegoUkladu" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CzyJestWaktywnych">
+      <soap12:operation soapAction="http://tempuri.org/CzyJestWaktywnych" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MojNajUkl">
+      <soap12:operation soapAction="http://tempuri.org/MojNajUkl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ZwrocUserowStart">
+      <soap12:operation soapAction="http://tempuri.org/ZwrocUserowStart" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ZwrocGraczy">
+      <soap12:operation soapAction="http://tempuri.org/ZwrocGraczy" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ZwrocNajUklGraczy">
+      <soap12:operation soapAction="http://tempuri.org/ZwrocNajUklGraczy" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
