@@ -120,6 +120,9 @@
     <None Include="Web References\Rozgrywki\Gra.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\Rozgrywki\Gracz.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\Rozgrywki\Karta.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -134,6 +137,9 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\Rozgrywki\Rozgrywki.wsdl" />
+    <None Include="Web References\Rozgrywki\Uzytkownik.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

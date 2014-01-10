@@ -43,7 +43,7 @@ namespace ClientWindowsFormsApplication1
 
             try
             {
-                Serwisy.komR = Serwisy.serwerRozgrywki.UtworzStol(Serwisy.token, textBox1.Text, trackBar1.Value, (int)numericUpDown1.Value, (int)numericUpDown2.Value);
+                Serwisy.komR = Serwisy.serwerRozgrywki.UtworzStol(Serwisy.token, textBox1.Text, (int)numericUpDown1.Value, (int)numericUpDown2.Value, trackBar1.Value);
                 
                 if (Serwisy.komR.kodKomunikatu == 200)
                 {//utworzenie stolu
@@ -68,6 +68,8 @@ namespace ClientWindowsFormsApplication1
             } 
 
         }
+
+       
 
 
 
